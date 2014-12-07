@@ -5,6 +5,7 @@ class ListingsController < ApplicationController
   # GET /listings.json
   def index
     @listings = Listing.all
+    @listing = Listing.new
   end
 
   # GET /listings/1
@@ -58,6 +59,13 @@ class ListingsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def new_listing
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js
     end
   end
 
