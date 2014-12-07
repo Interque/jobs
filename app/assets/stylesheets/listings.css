@@ -3,6 +3,6 @@
   They will automatically be included in application.css.
 */
 
-.btn-success{
-	color: #fff;
+.actions{
+	margin-top: 10px;
 }
