@@ -7,7 +7,6 @@ class ListingsController < ApplicationController
   def index
     @listings = Listing.all
     @listing = Listing.new
-  
   end
 
   # GET /listings/1
