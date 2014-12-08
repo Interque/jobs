@@ -16,6 +16,7 @@ class ListingsController < ApplicationController
   # GET /listings/new
   def new
     @listing = Listing.new
+    @user = User.new
   end
 
   # GET /listings/1/edit
@@ -26,6 +27,7 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
+    #@user = User.find_or_create_by
 
     respond_to do |format|
       if @listing.save
