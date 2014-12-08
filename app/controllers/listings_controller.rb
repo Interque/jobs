@@ -1,11 +1,13 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:show, :index]
+  before_filter :require_login, only: [:create, :update, :edit, :destroy]
   # GET /listings
   # GET /listings.json
   def index
     @listings = Listing.all
     @listing = Listing.new
+  
   end
 
   # GET /listings/1
@@ -16,7 +18,7 @@ class ListingsController < ApplicationController
   # GET /listings/new
   def new
     @listing = Listing.new
-    @user = User.new
+    @user = @listing.user.new
   end
 
   # GET /listings/1/edit
@@ -27,7 +29,7 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
-    #@user = User.find_or_create_by
+
 
     respond_to do |format|
       if @listing.save
@@ -64,13 +66,6 @@ class ListingsController < ApplicationController
     end
   end
 
-  def new_listing
-    respond_to do |format|
-      format.html { redirect_to root_path }
-      format.js
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
@@ -80,5 +75,11 @@ class ListingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
       params.require(:listing).permit(:title, :description, :organization, :email, :salary, :location, :user_id)
+    end
+
+    def require_login
+      unless current_user
+        redirect_to root_url, { :notice => "Please login to continue." }
+      end
     end
 end
