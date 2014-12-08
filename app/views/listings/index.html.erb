@@ -19,7 +19,7 @@
         <td><%= listing.description %></td>
         <td><%= listing.organization %></td>
         <td><%= listing.email %></td>
-        <td><%= listing.salary %></td>
+        <td><%= listing.convert_range(listing.salary) %></td>
         <td><%= link_to 'Show', listing %></td>
         <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
         <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>

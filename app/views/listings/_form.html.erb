@@ -28,12 +28,13 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
-  <div class="field">
-    <%= f.label :salary %><br>
-    <%= f.number_field :salary %>
+  <div class="field salary-field">
+    <%= f.label :salary, "Salary Range" %><br>
+    <%= f.select :salary, options_for_select(Listing::RANGE_OPTIONS) %><br>
+    <%# f.number_field :salary %>
   </div>
 
-  <div class="field">
+  <div class="field location-field">
     <%= f.label :location %><br>
     <%= f.text_field :location %>
   </div>
