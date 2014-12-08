@@ -33,10 +33,14 @@
     <%= f.select :salary, options_for_select(Listing::RANGE_OPTIONS) %><br>
     <%# f.number_field :salary %>
   </div>
-
-  <div class="field location-field">
-    <%= f.label :location %><br>
-    <%= f.text_field :location %>
+  <div class="field">
+    <%= f.label :city, "Location: City" %><br>
+    <%= f.text_field :city %>
+  </div>
+  <div class="field salary-field">
+    <%= f.label :state, "Location: State" %><br>
+    <%= f.select :state, options_for_select(@listing.us_states) %><br>
+    <%# f.number_field :salary %>
   </div>
   <div class="actions">
     <%= f.submit "Create", class: "btn btn-success" %>

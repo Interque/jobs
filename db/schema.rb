@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141208001249) do
+ActiveRecord::Schema.define(version: 20141208184439) do
 
   create_table "listings", force: true do |t|
     t.string   "title"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20141208001249) do
     t.datetime "updated_at"
     t.string   "location"
     t.integer  "user_id"
+    t.string   "city"
+    t.string   "state"
   end
 
   add_index "listings", ["user_id"], name: "index_listings_on_user_id"
