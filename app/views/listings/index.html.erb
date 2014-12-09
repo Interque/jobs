@@ -23,7 +23,6 @@
       <div>Location: <%= listing.city %>, <%= listing.state %></div>
       <br>
       <div class="links">
-        <%= link_to 'Show', listing %>
         <%= link_to 'Edit', edit_listing_path(listing) %>
         <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %><br>
       </div>
