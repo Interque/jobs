@@ -22,3 +22,7 @@
 .job-posting{
 	border-bottom: solid 1px #d3d3d3;
 }
+
+nav{
+	float: right;
+}
