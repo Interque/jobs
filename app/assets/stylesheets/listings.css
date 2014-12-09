@@ -3,6 +3,15 @@
   They will automatically be included in application.css.
 */
 
+#logo{
+	float: left;
+	margin-top: 10px;
+}
+
+.page-title{
+	margin-top: 100px;
+}
+
 .actions{
 	margin-top: 10px;
 }
@@ -25,4 +34,5 @@
 
 nav{
 	float: right;
+	margin: 10px;
 }

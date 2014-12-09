@@ -9,7 +9,11 @@
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </head>
 <header>
+	<div id="logo">
+		<%= link_to image_tag('jobs_logo.png', size: "500x91"), root_path %>
+	</div>
 	<nav>
+		<%= link_to 'Home', "http://interque.co", class: "btn btn-success" %>
 		<!-- Button trigger modal -->
 
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -36,7 +40,7 @@
 		  </div>
 		</div>
 	</nav>
-	<%= link_to image_tag('jobs_logo.png', size: "500x91"), root_path %>
+
 	<% if user_signed_in? %>
 		Logged in as <strong><%= current_user.email %></strong>.
 		<%= link_to 'Edit profile', edit_user_registration_path %> |
