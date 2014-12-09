@@ -2,12 +2,16 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:show, :index]
   before_filter :require_login, only: [:create, :update, :edit, :destroy]
+
+
+
   # GET /listings
   # GET /listings.json
   def index
     # @listings = Listing.all
     @listings = Listing.search(params[:search])
     @listing = Listing.new
+    @listings = Listing.page(params[:page]).per_page(5)
   end
 
   # GET /listings/1

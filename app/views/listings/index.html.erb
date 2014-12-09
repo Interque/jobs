@@ -1,5 +1,6 @@
 <h3 class="text-center page-title">Interque Job Postings</h3>
 
+<div>
   <% @listings.each do |listing| %>
     <div class="job-posting col-md-4 col-md-offset-4">
       <div class="listing-title">
@@ -32,19 +33,14 @@
   <% end %>
 
   <br>
-
 </div>
-
+        <div class="digg_pagination text-center"><%= will_paginate %></div>
 <%# if current_user %>
 
-
-
-
+<br>
 
 <%# else %>
 
 <!--   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
     <%# link_to 'New Listing', sign %>
   </button> -->
-
-  
