@@ -44,6 +44,6 @@ html * {
 nav{
 	float: right;
 	margin-right: 40px;
-	display: inline;
-	margin-top: 15px;
+	display: inline-block;
+	margin-top: 3%;
 }
