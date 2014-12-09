@@ -2,13 +2,18 @@
 
   <% @listings.each do |listing| %>
     <div class="job-posting col-md-4 col-md-offset-4">
-      <div class="listing-title"><%= listing.title %></div>
-      Description: <%= listing.description %><br>
-      <div>
-      Organization: <%= listing.organization %><br>
+      <div class="listing-title">
+        <h4><%= listing.title %></h4>
       </div>
       <div>
-        Email: <%= listing.email %>
+        Organization: <%= listing.organization %>
+      </div><br>
+      <div>
+        Description: <%= listing.description %> 
+      </div><br>
+
+      <div>
+        Contact: <%= listing.email %>
       </div>
       <br>
       <div>
@@ -22,6 +27,7 @@
         <%= link_to 'Edit', edit_listing_path(listing) %>
         <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %><br>
       </div>
+      <br>
     </div>
     <br>
   <% end %>
