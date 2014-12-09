@@ -13,7 +13,9 @@
 		<%= link_to image_tag('jobs_logo.png', size: "500x91"), root_path %>
 	</div>
 	<nav>
-		<%= link_to 'Home', "http://interque.co", class: "btn btn-success" %>
+		<div>
+			<%= link_to 'Home', "http://interque.co", class: "btn btn-success" %>
+		</div>
 		<!-- Button trigger modal -->
 
 		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -39,19 +41,34 @@
 		    </div>
 		  </div>
 		</div>
+		<!-- Job Board Header link -->
+		<div class="board-button">
+		<%= link_to 'Job Board', listings_path, class: "btn btn-success" %>
+		</div>
+		<!-- Search -->
+		<div>
+			<%= form_tag listings_path, :method => 'get' do %>
+			  <p>
+			    <%= text_field_tag :search, params[:search], class: "search-bar" %>
+			    <%= submit_tag "Search", :name => nil, class: "search-button" %>
+			  </p>
+			<% end %>
+		</div>
 	</nav>
-
-	<% if user_signed_in? %>
-		Logged in as <strong><%= current_user.email %></strong>.
-		<%= link_to 'Edit profile', edit_user_registration_path %> |
-		<%= link_to "Logout", destroy_user_session_path, method: :delete %>
-	<% else %>
-		<%= link_to "Sign up", new_user_registration_path %> |
-		<%= link_to "Login", new_user_session_path %>
-	<% end %>
-
+	<br>
 </header>
+	
 <body>
+	<div class="col-md-12 text-left">
+		<% if user_signed_in? %>
+			Logged in as <strong><%= current_user.email %></strong>.
+			<%= link_to 'Edit profile', edit_user_registration_path %> |
+			<%= link_to "Logout", destroy_user_session_path, method: :delete %>
+		<% else %>
+			<%= link_to "Sign up", new_user_registration_path %> |
+			<%= link_to "Login", new_user_session_path %>
+		<% end %>
+	</div>
 
 <%= yield %>
 

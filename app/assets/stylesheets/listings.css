@@ -9,7 +9,13 @@
 }
 
 .page-title{
-	margin-top: 100px;
+	margin-top: 120px;
+}
+
+.login-stuff{
+	float: left;
+	text-align: left;
+	margin-top: 120px;
 }
 
 .actions{
@@ -30,9 +36,4 @@
 
 .job-posting{
 	border-bottom: solid 1px #d3d3d3;
-}
-
-nav{
-	float: right;
-	margin: 10px;
 }

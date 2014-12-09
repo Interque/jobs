@@ -19,3 +19,31 @@
 html * {
   font-family: 'Open Sans', sans-serif !important;
 }
+
+.search-bar {
+  padding: 8px 15px;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  width: 217px;
+  margin-top: 5px;
+}
+
+.search-button {
+  position: relative;
+  padding: 6px 15px;
+  left: -8px;
+  border: 2px solid #4cae4c;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #5cb85c;
+  color: #fff;
+  height: 38px;
+}
+
+
+nav{
+	float: right;
+	margin-right: 40px;
+	display: inline;
+	margin-top: 15px;
+}

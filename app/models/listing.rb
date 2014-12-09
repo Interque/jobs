@@ -79,4 +79,12 @@ class Listing < ActiveRecord::Base
       ['Wyoming', 'WY']
     ]
 	end
+
+  def self.search(search)
+    if search
+      Listing.find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+    else
+      Listing.all
+    end
+  end
 end
