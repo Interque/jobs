@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20141208184439) do
     t.integer  "salary"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "location"
     t.integer  "user_id"
     t.string   "city"
     t.string   "state"

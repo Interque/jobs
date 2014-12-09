@@ -1,37 +1,32 @@
-<h1>Listing listings</h1>
+<h3 class="text-center">Job Postings</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Organization</th>
-      <th>Email</th>
-      <th>Salary</th>
-      <th>Location</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <% @listings.each do |listing| %>
+    <div class="job-posting col-md-4 col-md-offset-4">
+      <div class="listing-title"><%= listing.title %></div>
+      Description: <%= listing.description %><br>
+      <div>
+      Organization: <%= listing.organization %><br>
+      </div>
+      <div>
+        Email: <%= listing.email %>
+      </div>
+      <br>
+      <div>
+        Salary: <%= listing.convert_range(listing.salary) %>
+      </div>
+      <br>
+      <div>Location: <%= listing.city %>, <%= listing.state %></div>
+      <br>
+      <div class="links">
+        <%= link_to 'Show', listing %>
+        <%= link_to 'Edit', edit_listing_path(listing) %>
+        <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+      </div>
+    </div>
+    <br>
+  <% end %>
 
-  <tbody>
-    <% @listings.each do |listing| %>
-      <tr>
-        <td><%= listing.title %></td>
-        <td><%= listing.description %></td>
-        <td><%= listing.organization %></td>
-        <td><%= listing.email %></td>
-        <td><%= listing.convert_range(listing.salary) %></td>
-        <td><%= listing.city %>, <%= listing.state %></td>
-        <td><%= link_to 'Show', listing %></td>
-        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-        <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
+  <br>
 
 </div>
 

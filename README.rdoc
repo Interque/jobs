@@ -1,4 +1,4 @@
-https://blooming-fjord-7625.herokuapp.com/
+https://git.heroku.com/guarded-everglades-4684.git
 
 Toggle the: config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } for production
 
