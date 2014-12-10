@@ -12,7 +12,8 @@
         Organization: <span class="listing-organization" data-pk="<%= listing.id %>"><%= listing.organization %></span>
       </div><br>
       <div>
-        Description: <span class="listing-description" data-pk="<%= listing.id %>"><%= listing.description %></span>
+
+        Description: <span class="listing-description" data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
       </div><br>
 
       <div>
@@ -27,8 +28,8 @@
       <br>
       <%#if listing.user_id == current_user.id %>
         <div class="links">
-          <%= link_to 'Edit', edit_listing_path(listing) %>
-          <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %><br>
+          <%= link_to '', edit_listing_path(listing), class: "glyphicon glyphicon-edit" %>
+          <%= link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
         </div>
       <%# end %>
       <br>

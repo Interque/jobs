@@ -12,12 +12,10 @@
  *
  *= require_tree .
  *= require_self
- 
- 
- 
+ *= require bootsy 
  */
 
-html * {
+div {
   font-family: 'Open Sans', sans-serif !important;
 }
 
@@ -47,4 +45,16 @@ nav{
 	margin-right: 40px;
 	display: inline-block;
 	margin-top: 3%;
+}
+
+.page-title {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.glyphicon-ban-circle {
+  color: #f00;
+}
+
+.glyphicon:hover {
+  text-decoration: none;
 }
