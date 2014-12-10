@@ -12,7 +12,8 @@
 
 #user_email, 
 #user_password,
-#user_password_confirmation{
+#user_password_confirmation,
+#user_current_password {
 	border-radius: 5px;
 }
 
@@ -53,6 +54,10 @@
 	margin-right: 50%;
 }
 
+.edit-box {
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+}
 .editable-click.{
 	border-bottom: none;
 }
