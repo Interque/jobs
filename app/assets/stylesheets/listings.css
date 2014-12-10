@@ -3,6 +3,19 @@
   They will automatically be included in application.css.
 */
 
+.login-box{
+	margin-top: 30px;
+	border: 1px solid #d3d3d3;
+	max-height: 250px;
+	border-radius: 5px;
+}
+
+#user_email, 
+#user_password,
+#user_password_confirmation{
+	border-radius: 5px;
+}
+
 #logo{
 	float: left;
 	margin-top: 10px;
@@ -24,6 +37,7 @@
 
 .field{
 	margin-top: 5px;
+	border-radius: 5px;
 }
 
 /*.location-field{
