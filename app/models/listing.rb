@@ -82,9 +82,26 @@ class Listing < ActiveRecord::Base
 
   def self.search(search)
     if search
-      Listing.find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
+      Listing.where(['title LIKE ?', "#{search}"])
     else
       Listing.all
     end
   end
+
+  # def conditions
+  #   [conditions_clauses.join(' AND '), *conditions_options]
+  # end
+
+  # def conditions_clauses
+  #   conditions_parts.map { |condition| condition.first }
+  # end
+
+  # def conditions_options
+  #   conditions_parts.map { |condition| condition[1..-1] }.flatten
+  # end
+
+  # def conditions_parts
+  #   private_methods(false).grep(/_conditions$/).map { |m| send(m) }.compact
+  # end
+
 end

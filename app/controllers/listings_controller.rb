@@ -3,8 +3,6 @@ class ListingsController < ApplicationController
   before_filter :authenticate_user!, except: [:show, :index]
   before_filter :require_login, only: [:create, :update, :edit, :destroy]
 
-
-
   # GET /listings
   # GET /listings.json
   def index
@@ -27,6 +25,9 @@ class ListingsController < ApplicationController
 
   # GET /listings/1/edit
   def edit
+    unless @listing.user_id == current_user.id
+      redirect_to root_url
+    end
   end
 
   # POST /listings
@@ -63,6 +64,10 @@ class ListingsController < ApplicationController
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
+    unless @listing.user_id == current_user.id
+      redirect_to root_url
+    end
+
     @listing.destroy
     respond_to do |format|
       format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
