@@ -12,7 +12,8 @@
 
 #user_email, 
 #user_password,
-#user_password_confirmation{
+#user_password_confirmation,
+#user_current_password {
 	border-radius: 5px;
 }
 
