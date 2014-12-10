@@ -1,6 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 $(document).ready(function(){
+
 	var post_id = $("div.job-posting").attr("data-pk");
 	$.fn.editable.defaults.mode = 'inline';
 	$.fn.editable.defaults.ajaxOptions = {type: "PUT"};
@@ -9,22 +10,28 @@ $(document).ready(function(){
   //  })
 		//$(this).closest(".job-posting").attr("data-id");
 	
-	$(".listing-title").editable({
-		type: 'text',
-		url: 'listings/' + post_id,
-		success: function(){
-			console.log(arguments);
-		},
-		params: function(params) {
-			params.listing = {
-				title: params.value
-			};
-			return params;
-		},
-		ajaxOptions: {
-       dataType: 'json',
-       type: 'PUT'
-    },
+	$(".listing-title").each(function(){
+
+		var post_id = $(this).attr("data-pk");
+		
+		$(this).editable({
+			type: 'text',
+			url: 'listings/' + post_id,
+			success: function(){
+				console.log(arguments);
+			},
+			params: function(params) {
+				params.listing = {
+					title: params.value
+				};
+				return params;
+			},
+			ajaxOptions: {
+	       dataType: 'json',
+	       type: 'PUT'
+	    },
+		});
+
 	});
 
 	$(".listing-organization").editable({
@@ -46,7 +53,7 @@ $(document).ready(function(){
 	});
 
 	$(".listing-description").editable({
-		type: 'text',
+		type: 'textarea',
 		url: 'listings/' + post_id,
 		success: function(){
 			console.log(arguments);
