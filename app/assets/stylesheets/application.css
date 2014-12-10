@@ -47,3 +47,15 @@ nav{
 	display: inline-block;
 	margin-top: 3%;
 }
+
+.page-title {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.glyphicon-ban-circle {
+  color: #f00;
+}
+
+.glyphicon:hover {
+  text-decoration: none;
+}
