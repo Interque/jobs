@@ -23,12 +23,12 @@
       <br>
       <div>Location: <%= listing.city %>, <%= listing.state %></div>
       <br>
-      <% if @listing.user_id == current_user.id %>
+      <%#if listing.user_id == current_user.id %>
         <div class="links">
           <%= link_to 'Edit', edit_listing_path(listing) %>
           <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %><br>
         </div>
-      <% end %>
+      <%# end %>
       <br>
     </div>
     <br>
