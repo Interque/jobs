@@ -23,5 +23,9 @@ $(document).on('ready page:load', function(){
 	if(url === "/users/sign_in" || url === "/users/sign_up"){
 		$("#login-links").removeClass("text-left col-md-12").addClass("col-md-4 col-md-offset-4 text-center");
 	}
+
+	$.fn.editable.defaults.mode = 'inline';
 });
+
+
 
