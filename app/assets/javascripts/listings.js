@@ -13,7 +13,7 @@ $(document).ready(function(){
 	$(".listing-title").each(function(){
 
 		var post_id = $(this).attr("data-pk");
-		
+
 		$(this).editable({
 			type: 'text',
 			url: 'listings/' + post_id,
@@ -34,58 +34,70 @@ $(document).ready(function(){
 
 	});
 
-	$(".listing-organization").editable({
-		type: 'text',
-		url: 'listings/' + post_id,
-		success: function(){
-			console.log(arguments);
-		},
-		params: function(params) {
-			params.listing = {
-				organization: params.value
-			};
-			return params;
-		},
-		ajaxOptions: {
-       dataType: 'json',
-       type: 'PUT'
-    },
+
+	$(".listing-organization").each(function(){
+		
+		var post_id = $(this).attr("data-pk");
+
+		$(this).editable({
+			type: 'text',
+			url: 'listings/' + post_id,
+			success: function(){
+				console.log(arguments);
+			},
+			params: function(params) {
+				params.listing = {
+					organization: params.value
+				};
+				return params;
+			},
+			ajaxOptions: {
+	       dataType: 'json',
+	       type: 'PUT'
+	    },
+	  });
 	});
 
-	$(".listing-description").editable({
-		type: 'textarea',
-		url: 'listings/' + post_id,
-		success: function(){
-			console.log(arguments);
-		},
-		params: function(params) {
-			params.listing = {
-				description: params.value
-			};
-			return params;
-		},
-		ajaxOptions: {
-       dataType: 'json',
-       type: 'PUT'
-    },
+	$(".listing-description").each(function(){
+		var post_id = $(this).attr("data-pk");
+		$(this).editable({
+			type: 'textarea',
+			url: 'listings/' + post_id,
+			success: function(){
+				console.log(arguments);
+			},
+			params: function(params) {
+				params.listing = {
+					description: params.value
+				};
+				return params;
+			},
+			ajaxOptions: {
+	       dataType: 'json',
+	       type: 'PUT'
+	    },
+		});
 	});
 
-	$(".listing-email").editable({
-		type: 'text',
-		url: 'listings/' + post_id,
-		success: function(){
-			console.log(arguments);
-		},
-		params: function(params) {
-			params.listing = {
-				email: params.value
-			};
-			return params;
-		},
-		ajaxOptions: {
-       dataType: 'json',
-       type: 'PUT'
-    },
+	$(".listing-email").each(function(){
+		var post_id = $(this).attr("data-pk");
+		$(this).editable({
+			type: 'textarea',
+			url: 'listings/' + post_id,
+			success: function(){
+				console.log(arguments);
+			},
+			params: function(params) {
+				params.listing = {
+					email: params.value
+				};
+				return params;
+			},
+			ajaxOptions: {
+	       dataType: 'json',
+	       type: 'PUT'
+	    },
+		});
 	});
 });
 
