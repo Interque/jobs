@@ -1,24 +1,27 @@
 <h3 class="text-center page-title">Interque Job Postings</h3>
 
+<%# debug listing[:params] %>
+
 <div>
   <% @listings.each do |listing| %>
-    <div class="job-posting col-md-4 col-md-offset-4">
-      <div class="listing-title">
-        <h4><%= listing.title %></h4>
+    <div class="job-posting col-md-4 col-md-offset-4" data-pk="<%= listing.id %>">
+      <div>
+        <h4 class="listing-title" data-pk="<%= listing.id %>"><%= listing.title %></h4>
       </div>
       <div>
-        Organization: <span class="listing-organization"><%= listing.organization %></span>
+        Organization: <span class="listing-organization" data-pk="<%= listing.id %>"><%= listing.organization %></span>
       </div><br>
       <div>
-        Description: <span class="listing-description"><%= listing.description.html_safe %></span>
+
+        Description: <span class="listing-description" data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
       </div><br>
 
       <div>
-        Contact: <span class="listing-email"><%= listing.email %></span>
+        Contact: <span class="listing-email" data-pk="<%= listing.id %>"><%= listing.email %></span>
       </div>
       <br>
       <div>
-        Salary: <%= listing.convert_range(listing.salary) %>
+        Salary: <span class="listing-salary"><%= listing.convert_range(listing.salary) %></span>
       </div>
       <br>
       <div>Location: <%= listing.city %>, <%= listing.state %></div>

@@ -19,6 +19,7 @@
 //= require bootstrap-modalmanager
 
 $(document).on('ready page:load', function(){
+	$('.editable').editable();
 	var url = window.location.pathname
 	//console.log(url);
 	if(url === "/users/sign_in" || url === "/users/sign_up"){
@@ -26,6 +27,7 @@ $(document).on('ready page:load', function(){
 	}
 
   $.fn.editable.defaults.mode = 'inline';
+
 });
 
 
