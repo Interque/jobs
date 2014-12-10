@@ -9,7 +9,7 @@ class ListingsController < ApplicationController
     # @listings = Listing.all
     @listings = Listing.search(params[:search])
     @listing = Listing.new
-    @listings = Listing.page(params[:page]).per_page(5)
+    @listings = Listing.page(params[:page]).per_page(5).order(:created_at => :desc)
   end
 
   # GET /listings/1
@@ -38,7 +38,7 @@ class ListingsController < ApplicationController
 
     respond_to do |format|
       if @listing.save
-        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Listing was successfully created.' }
         format.json { render :show, status: :created, location: @listing }
       else
         format.html { render :new }
