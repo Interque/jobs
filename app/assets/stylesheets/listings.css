@@ -52,3 +52,7 @@
 	border-bottom: solid 1px #d3d3d3;
 	margin-right: 50%;
 }
+
+.editable-click.{
+	border-bottom: none;
+}
