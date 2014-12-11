@@ -9,26 +9,26 @@
         <h4 class="listing-title" data-pk="<%= listing.id %>"><%= listing.title %></h4>
       </div>
       <div>
-        Organization: <span class="listing-organization" data-pk="<%= listing.id %>"><%= listing.organization %></span>
+        <strong>Organization:</strong> <span class="listing-organization" data-pk="<%= listing.id %>"><%= listing.organization %></span>
       </div><br>
       <div>
 
-        Description: <span class="listing-description" data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
+        <strong>Description:</strong> <span class="listing-description" data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
       </div><br>
 
       <div>
-        Contact: <span class="listing-email" data-pk="<%= listing.id %>"><%= listing.email %></span>
+        <strong>Contact:</strong> <span class="listing-email" data-pk="<%= listing.id %>"><%= listing.email %></span>
       </div>
       <br>
       <div>
-        Salary: <span class="listing-salary"><%= listing.convert_range(listing.salary) %></span>
+        <strong>Salary:</strong> <span class="listing-salary"><%= listing.convert_range(listing.salary) %></span>
       </div>
       <br>
-      <div>Location: <%= listing.city %>, <%= listing.state %></div>
+      <div><strong>Location:</strong> <%= listing.city %>, <%= listing.state %></div>
       <br>
       <%#if listing.user_id == current_user.id %>
         <div class="links">
-          <%= link_to '', edit_listing_path(listing), class: "glyphicon glyphicon-edit" %>
+          <%# link_to '', edit_listing_path(listing), class: "glyphicon glyphicon-edit" %>
           <%= link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
         </div>
       <%# end %>
