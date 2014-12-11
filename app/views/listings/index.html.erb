@@ -26,12 +26,12 @@
       <br>
       <div><strong>Location:</strong> <%= listing.city %>, <%= listing.state %></div>
       <br>
-      <%#if listing.user_id == current_user.id %>
+      <% if current_user && listing.user_id == current_user.id %>
         <div class="links">
-          <%# link_to '', edit_listing_path(listing), class: "glyphicon glyphicon-edit" %>
+          <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
           <%= link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
         </div>
-      <%# end %>
+      <% end %>
       <br>
     </div>
     <br>

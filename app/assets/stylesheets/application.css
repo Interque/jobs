@@ -57,4 +57,14 @@ nav{
 
 .glyphicon:hover {
   text-decoration: none;
+  color: none;
+}
+
+.glyphicon {
+  text-decoration: none;
+}
+
+a.glyphicon-edit {
+  text-decoration: none;
+  color: #337ab7;
 }

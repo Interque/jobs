@@ -2,6 +2,7 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:show, :index]
   before_filter :require_login, only: [:create, :update, :edit, :destroy]
+  before_action :creator, only: [:update, :edit]
 
   # GET /listings
   # GET /listings.json
@@ -50,8 +51,6 @@ class ListingsController < ApplicationController
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
-    puts "HEHRERHEHEHREHRERH"
-    puts params
     respond_to do |format|
       if @listing.update(listing_params)
         format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
@@ -91,6 +90,12 @@ class ListingsController < ApplicationController
     def require_login
       unless current_user
         redirect_to root_url, { :notice => "Please login to continue." }
+      end
+    end
+
+    def creator
+      unless @listing.user_id == current_user.id
+        redirect_to root_url
       end
     end
 end

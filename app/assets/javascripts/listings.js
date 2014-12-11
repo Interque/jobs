@@ -12,6 +12,9 @@ $(document).on('ready page:load', function(){
 	
 	$(".listing-title").each(function(){
 
+
+
+
 		var post_id = $(this).attr("data-pk");
 
 		$(this).editable({
@@ -31,7 +34,6 @@ $(document).on('ready page:load', function(){
 	       type: 'PUT'
 	    },
 		});
-
 	});
 
 
@@ -98,6 +100,19 @@ $(document).on('ready page:load', function(){
 	       type: 'PUT'
 	    },
 		});
+	});
+
+	$(".job-posting").each(function(){
+		$(this).find(".edit-button").on("click", function(e){
+			e.preventDefault();
+			$('.links').append("<span class='edit-alert' style='color:red'>Please click the field you'd like to edit</span>");
+				$(this).closest(".job-posting").find('.editable').addClass('editable-underline');
+		});
+
+      $(".editable").on("click", function(){
+      	$('.edit-alert').remove();
+      		$('.editable').removeClass('editable-underline');
+    });
 	});
 });
 

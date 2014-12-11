@@ -59,11 +59,10 @@
 	border-radius: 5px;
 }
 
-
-.editable-click:hover{
-	border-bottom: dashed 1px #0088cc;
-}
-
 .editable-click {
 	border-bottom: none;
+}
+
+.editable-underline {
+	border: dashed 1px #0088cc;
 }
