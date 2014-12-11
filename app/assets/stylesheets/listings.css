@@ -58,6 +58,12 @@
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
 }
-.editable-click.{
+
+
+.editable-click:hover{
+	border-bottom: dashed 1px #0088cc;
+}
+
+.editable-click {
 	border-bottom: none;
 }
