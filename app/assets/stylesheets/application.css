@@ -68,3 +68,8 @@ a.glyphicon-edit {
   text-decoration: none;
   color: #337ab7;
 }
+
+.requirement {
+  color: #f00;
+  opacity: 0.6;
+}
