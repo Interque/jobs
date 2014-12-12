@@ -81,26 +81,26 @@ $(document).on('ready page:load', function(){
 		});
 	});
 
-	$(".listing-email").each(function(){
-		var post_id = $(this).attr("data-pk");
-		$(this).editable({
-			type: 'textarea',
-			url: 'listings/' + post_id,
-			success: function(){
-				console.log(arguments);
-			},
-			params: function(params) {
-				params.listing = {
-					email: params.value
-				};
-				return params;
-			},
-			ajaxOptions: {
-	       dataType: 'json',
-	       type: 'PUT'
-	    },
-		});
-	});
+	// $(".listing-email").each(function(){
+	// 	var post_id = $(this).attr("data-pk");
+	// 	$(this).editable({
+	// 		type: 'textarea',
+	// 		url: 'listings/' + post_id,
+	// 		success: function(){
+	// 			console.log(arguments);
+	// 		},
+	// 		params: function(params) {
+	// 			params.listing = {
+	// 				email: params.value
+	// 			};
+	// 			return params;
+	// 		},
+	// 		ajaxOptions: {
+	//        dataType: 'json',
+	//        type: 'PUT'
+	//     },
+	// 	});
+	// });
 
 	$(".job-posting").each(function(){
 		$(this).find(".edit-button").on("click", function(e){

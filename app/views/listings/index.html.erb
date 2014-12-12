@@ -6,18 +6,18 @@
   <% @listings.each do |listing| %>
     <div class="job-posting col-md-4 col-md-offset-4" data-pk="<%= listing.id %>">
       <div>
-        <h4 class="listing-title" data-pk="<%= listing.id %>"><%= listing.title %></h4>
+        <h4 <span class=<%= current_user == listing.user ? "listing-title" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.title %></h4>
       </div>
       <div>
-        <strong>Organization:</strong> <span class="listing-organization" data-pk="<%= listing.id %>"><%= listing.organization %></span>
+        <strong>Organization:</strong> <span class=<%= current_user == listing.user ? "listing-organization" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.organization %></span>
       </div><br>
       <div>
 
-        <strong>Description:</strong> <span class="listing-description" data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
+        <strong>Description:</strong> <span class=<%= current_user == listing.user ? "listing-description" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
       </div><br>
 
       <div>
-        <strong>Contact:</strong> <span class="listing-email" data-pk="<%= listing.id %>"><%= listing.email %></span>
+        <strong>Contact:</strong> <span class="listing-email" data-pk="<%= listing.id %>"><%= mail_to listing.email, "Email" %></span>
       </div>
       <br>
       <div>
