@@ -24,7 +24,7 @@ div {
   border: 1px solid #dbdbdb;
   border-radius: 5px;
   width: 199px;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
 }
 
 .search-button {
@@ -39,12 +39,26 @@ div {
   height: 38px;
 }
 
+.search-container {
+  display: inline-block;
+}
 
-nav{
-	float: right;
-	margin-right: 40px;
-	display: inline-block;
-	margin-top: 3%;
+.new-listing {
+  height: 38px;
+  padding-top: 8px;
+}
+
+.btn-success {
+  height: 38px;
+  padding-top: 8px;
+}
+
+.editable-submit {
+  height: 30px;
+}
+
+.navbar {
+  margin-bottom: 0px;
 }
 
 .page-title {
@@ -74,8 +88,13 @@ a.glyphicon-edit {
   opacity: 0.6;
 }
 
+#login-links {
+  padding-left: 76px;
+}
+
 @media only screen and (max-width : 400px) {
   .page-title {
     margin-top: 0px;
+    margin-bottom: 25px;
   }
 }
