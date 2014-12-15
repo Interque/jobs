@@ -24,8 +24,10 @@
         <strong>Salary:</strong> <span class="listing-salary"><%= listing.convert_range(listing.salary) %></span>
       </div>
       <br>
-      <div><strong>Location:</strong> <%= listing.city %>, <%= listing.state %></div>
+      <div style="padding-bottom: 10px;"><strong>Location:</strong> <%= listing.city %>, <%= listing.state %>
       <br>
+      </div>
+      <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(listing.updated_at) %> ago.</div>
       <% if current_user && listing.user_id == current_user.id %>
         <div class="links">
           <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
