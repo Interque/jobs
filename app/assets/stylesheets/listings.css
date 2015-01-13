@@ -72,6 +72,15 @@
 	margin-top: 22px;
 }
 
+nav.share{
+	padding: 15px;
+	display: inline;
+}
+
+nav.share div {
+	float: left;
+}
+
 h4 {
 	font-size: 20px;
 }
