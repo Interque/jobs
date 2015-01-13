@@ -28,17 +28,19 @@
       <br>
       </div>
       <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(listing.updated_at) %> ago.</div>
+
+      <div>
+        <span class="share">
+          <%= render_shareable :buttons => ['facebook', 'linkedin', 'twitter'] %>
+        </span>
+      </div>
+      
       <% if current_user && listing.user_id == current_user.id %>
         <div class="links">
           <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
           <%= link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
         </div>
       <% end %>
-        <div>
-          <span class="share">
-            <%= render_shareable :buttons => ['facebook', 'linkedin', 'twitter'] %>
-          </span>
-        </div>
       <br>
     </div>
     <br>
