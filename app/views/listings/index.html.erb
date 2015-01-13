@@ -33,8 +33,8 @@
         <span class="share">
           <%= render_shareable :buttons => ['facebook', 'linkedin', 'twitter'] %>
         </span>
-      </div>
-      
+      </div><br>
+
       <% if current_user && listing.user_id == current_user.id %>
         <div class="links">
           <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
