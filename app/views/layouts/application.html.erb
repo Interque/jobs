@@ -53,7 +53,11 @@
             <h4 class="modal-title" id="myModalLabel">Create New Listing</h4>
           </div>
           <div class="modal-body">
-            <%= render 'listings/form' %>
+            <% if current_user %>
+              <%= render 'listings/form' %>
+            <% else %>
+              <div class="alert alert-danger modal-warning" role="alert">Please <%= link_to "login", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to add a job.</div>
+            <% end %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
