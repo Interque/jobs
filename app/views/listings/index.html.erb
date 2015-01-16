@@ -6,7 +6,7 @@
   <% @listings.each do |listing| %>
     <div class="job-posting col-md-4 col-md-offset-4" data-pk="<%= listing.id %>">
       <div>
-        <h4 <span class=<%= current_user == listing.user ? "listing-title" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.title %></h4>
+        <h4 class="text-center"> <span class=<%= current_user == listing.user ? "listing-title" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.title %> </span></h4>
       </div>
       <div>
         <strong>Organization:</strong> <span class=<%= current_user == listing.user ? "listing-organization" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.organization %></span>
@@ -29,14 +29,11 @@
       </div>
       <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(listing.updated_at) %> ago.</div>
 
-      <div>
-        <span class="share">
-          <%= render_shareable :buttons => ['facebook', 'linkedin', 'twitter'] %>
-        </span>
-      </div><br>
+      <br>
 
       <% if current_user && listing.user_id == current_user.id %>
-        <div class="links">
+        <div class="links text-center">
+          <%= link_to 'View Full Listing', listing_path(listing) %><br>
           <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
           <%= link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
         </div>

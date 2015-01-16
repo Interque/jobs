@@ -1,29 +1,75 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @listing.title %>
-</p>
+<!-- <p> -->
+  <!-- <strong>Title:</strong> -->
+  <%# @listing.title %>
+<!-- </p> -->
 
-<p>
-  <strong>Description:</strong>
-  <%= (@listing.description) %>
-</p>
+<!-- <p> -->
+  <!-- <strong>Description:</strong> -->
+  <%# (@listing.description) %>
+<!-- </p> -->
 
-<p>
-  <strong>Organization:</strong>
-  <%= @listing.organization %>
-</p>
+<!-- <p> -->
+  <!-- <strong>Organization:</strong> -->
+  <%# @listing.organization %>
+<!-- </p> -->
 
-<p>
-  <strong>Email:</strong>
-  <%= @listing.email %>
-</p>
+<!-- <p> -->
+  <!-- <strong>Email:</strong> -->
+  <%# @listing.email %>
+<!-- </p> -->
 
-<p>
-  <strong>Salary:</strong>
-  <%= @listing.salary %>
-</p>
+<!-- <p> -->
+  <!-- <strong>Salary:</strong> -->
+  <%# @listing.salary %>
+<!-- </p> -->
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
+<div class="job-posting col-md-4 col-md-offset-4" >
+      <div>
+        <h4><span class=<%= current_user == @listing.user ? "listing-title" : "non-editable" %>><%= @listing.title %></span></h4>
+      </div>
+      <div>
+        <strong>Organization:</strong> <span class=<%= current_user == @listing.user ? "listing-organization" : "non-editable" %>><%= @listing.organization %></span>
+      </div><br>
+      <div>
+
+        <strong>Description:</strong> <span class=<%= current_user == @listing.user ? "listing-description" : "non-editable" %>><%= @listing.description.html_safe %></span>
+      </div><br>
+
+      <div>
+        <strong>Contact:</strong> <span class="listing-email"><%= mail_to @listing.email, "Email" %></span>
+      </div>
+      <br>
+      <div>
+        <strong>Salary:</strong> <span class="listing-salary"><%= @listing.convert_range(@listing.salary) %></span>
+      </div>
+      <br>
+      <div style="padding-bottom: 10px;"><strong>Location:</strong> <%= @listing.city %>, <%= @listing.state %>
+      <br>
+      </div>
+      <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(@listing.updated_at) %> ago.</div>
+
+      <div>
+        <span class="share">
+          <%= render_shareable :buttons => ['facebook', 'linkedin', 'twitter'] %>
+        </span>
+      </div><br>
+
+      <%# if current_user && @listing.user_id == current_user.id %>
+        <!-- <div class="links text-center"> -->
+          <%# link_to '', edit_listing_path(@listing), class: "edit-button glyphicon glyphicon-edit" %>
+          <%# link_to '', @listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
+        <!-- </div> -->
+      <%# end %>
+      <br>
+    </div>
+    <br>
+
+  <br>
+</div>
+
+<%# link_to 'Edit', edit_listing_path(@listing) %>
+<div class="text-center">
+  <%= link_to 'Back', listings_path %>
+</div>
