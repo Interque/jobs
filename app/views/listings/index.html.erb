@@ -31,13 +31,13 @@
 
       <br>
 
-      <% if current_user && listing.user_id == current_user.id %>
         <div class="links text-center">
           <%= link_to 'View Full Listing', listing_path(listing) %><br>
+      <% if current_user && listing.user_id == current_user.id %>
           <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
           <%= link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
-        </div>
       <% end %>
+        </div>
       <br>
     </div>
     <br>
