@@ -27,7 +27,7 @@
 
 <div class="job-posting col-md-4 col-md-offset-4" >
       <div>
-        <h4><span class=<%= current_user == @listing.user ? "listing-title" : "non-editable" %>><%= @listing.title %></span></h4>
+        <h4 class="text-center"><span class=<%= current_user == @listing.user ? "listing-title" : "non-editable" %>><%= @listing.title %></span></h4>
       </div>
       <div>
         <strong>Organization:</strong> <span class=<%= current_user == @listing.user ? "listing-organization" : "non-editable" %>><%= @listing.organization %></span>
@@ -49,12 +49,12 @@
       <br>
       </div>
       <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(@listing.updated_at) %> ago.</div>
-
+      <br>
       <div>
         <span class="share">
           <%= render_shareable :buttons => ['facebook', 'linkedin', 'twitter'] %>
         </span>
-      </div><br>
+      </div>
 
       <%# if current_user && @listing.user_id == current_user.id %>
         <!-- <div class="links text-center"> -->
