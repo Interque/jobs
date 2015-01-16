@@ -39,7 +39,7 @@ class ListingsController < ApplicationController
 
     respond_to do |format|
       if @listing.save
-        format.html { redirect_to root_url, notice: 'Listing was successfully created.' }
+        format.html { redirect_to listing_path(@listing), notice: 'Listing was successfully created.' }
         format.json { render :show, status: :created, location: @listing }
       else
         format.html { render :new }
