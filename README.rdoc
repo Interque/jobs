@@ -1,4 +1,7 @@
 https://git.heroku.com/guarded-everglades-4684.git
+http://jobs.interque.co
 
 Toggle the: config.action_mailer.default_url_options = { host: 'localhost', port: 3000 } for production
+
+.
 
