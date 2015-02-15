@@ -26,7 +26,7 @@ class ListingsController < ApplicationController
 
   # GET /listings/1/edit
   def edit
-    unless @listing.user_id == current_user.id
+    unless @listing.user_id == current_user.id || current_user.admin
       redirect_to root_url
     end
   end
@@ -94,7 +94,7 @@ class ListingsController < ApplicationController
     end
 
     def creator
-      unless @listing.user_id == current_user.id
+      unless @listing.user_id == current_user.id || current_user.admin
         redirect_to root_url
       end
     end
