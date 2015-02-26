@@ -8,6 +8,7 @@
       <div>
         <h4 class="text-center"> <span class=<%= current_user == listing.user || current_user && current_user.admin ? "listing-title" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.title %> </span></h4>
       </div>
+    <div class="hide-stuff">
       <div>
         <strong>Organization:</strong> <span class=<%= current_user == listing.user || current_user && current_user.admin ? "listing-organization" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.organization %></span>
       </div><br>
@@ -24,6 +25,7 @@
         <strong>Salary:</strong> <span class="listing-salary"><%= listing.convert_range(listing.salary) %></span>
       </div>
       <br>
+    </div>
       <div style="padding-bottom: 10px;"><strong>Location:</strong> <%= listing.city %>, <%= listing.state %>
       <br>
       </div>

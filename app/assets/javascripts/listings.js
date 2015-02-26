@@ -12,9 +12,6 @@ $(document).on('ready page:load', function(){
 	
 	$(".listing-title").each(function(){
 
-
-
-
 		var post_id = $(this).attr("data-pk");
 
 		$(this).editable({
@@ -113,6 +110,10 @@ $(document).on('ready page:load', function(){
       		$('.editable').removeClass('editable-underline');
     });
 	});
+
+	$(".hide-stuff").hide();
+	
+
 });
 
 
