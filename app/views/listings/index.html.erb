@@ -8,10 +8,10 @@
       <div>
         <h4 class="text-center"> <span class=<%= current_user == listing.user || current_user && current_user.admin ? "listing-title" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.title %> </span></h4>
       </div>
-    <div class="hide-stuff">
       <div>
         <strong>Organization:</strong> <span class=<%= current_user == listing.user || current_user && current_user.admin ? "listing-organization" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.organization %></span>
       </div><br>
+    <div class="hide-stuff">
       <div>
 
         <strong>Description:</strong> <span class=<%= current_user == listing.user || current_user && current_user.admin ? "listing-description" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
