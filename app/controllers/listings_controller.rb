@@ -10,7 +10,7 @@ class ListingsController < ApplicationController
     # @listings = Listing.all
     @listings = Listing.search(params[:search])
     @listing = Listing.new
-    @listings = Listing.page(params[:page]).per_page(5).order(:created_at => :desc)
+    @listings = Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
   end
 
   # GET /listings/1
