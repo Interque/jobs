@@ -58,6 +58,9 @@ GEM
     erubis (2.7.0)
     execjs (2.5.2)
     hike (1.2.3)
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
@@ -72,6 +75,7 @@ GEM
     mini_magick (4.2.7)
     minitest (5.7.0)
     multi_json (1.11.2)
+    multi_xml (0.5.5)
     orm_adapter (0.5.0)
     pg (0.18.2)
     rack (1.5.5)
@@ -149,6 +153,7 @@ DEPENDENCIES
   bootsy
   coffee-rails (~> 4.0.0)
   devise
+  httparty
   jbuilder (~> 2.0)
   jquery-rails
   pg
