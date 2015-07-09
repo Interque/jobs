@@ -12,3 +12,6 @@ task :get_jobs do
     end
   end
 end
+
+task :clean do
+end
