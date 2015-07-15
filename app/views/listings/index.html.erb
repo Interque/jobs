@@ -13,7 +13,6 @@
       </div><br>
     <div class="hide-stuff">
       <div>
-
         <strong>Description:</strong> <span class=<%= current_user == listing.user || current_user && current_user.admin ? "listing-description" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
       </div><br>
 
