@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :day, at: '2am' do 
-  rake 'get_jobs'
-end
+# every :day, at: '2am' do 
+#   rake 'get_jobs'
+# end
