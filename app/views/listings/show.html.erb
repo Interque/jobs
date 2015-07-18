@@ -51,6 +51,8 @@
       <br>
       <% if @listing.location %>
         <div style="padding-bottom: 10px;"><strong>Location:</strong> <%= @listing.location %>
+      <% elsif @listing.state && @listing.city %>
+        <div style="padding-bottom: 10px;"><strong>Location:</strong> <%= @listing.city %>, <%= @listing.state %>
       <% elsif @listing.city %>
         <div style="padding-bottom: 10px;"><strong>Location:</strong> <%= @listing.city %>
       <% end %>
