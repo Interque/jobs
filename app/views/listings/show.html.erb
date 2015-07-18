@@ -41,7 +41,7 @@
         <% if @listing.contact %>
           <strong>Contact:</strong> <span class="listing-email"><%= @listing.contact.html_safe %></span>
         <% elsif @listing.email %>
-          <strong>Contact:</strong> <span class="listing-email"><%= mail_to @listing.email, "Email" %></span>
+          <strong>Contact:</strong> <span class="listing-email"><%= @listing.email.html_safe %></span>
         <% end %>
       </div>
       <br>
