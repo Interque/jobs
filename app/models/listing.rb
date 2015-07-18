@@ -2,9 +2,10 @@ class Listing < ActiveRecord::Base
 	belongs_to :user
 
   validates :title, presence: true 
-  validates :description, presence: true
+  validates :description, presence: true, uniqueness: true
   validates :organization, presence: true
   validates :city, presence: true
+
 
 	validates :salary, inclusion: (1..8)
 	RANGE_OPTIONS=[['not specified', 1], ['less than 50k', 2], ['50k-75k', 3], ['76k-100k', 4], ['101k-125k', 5], ['126k-150k', 6], ['151k-200k', 7], ['more than 200k', 8]]
