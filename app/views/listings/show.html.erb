@@ -38,9 +38,10 @@
       </div><br>
 
       <div>
-        <!-- <strong>Contact:</strong> <span class="listing-email"><%# mail_to @listing.email, "Email" %></span> -->
         <% if @listing.contact %>
           <strong>Contact:</strong> <span class="listing-email"><%= @listing.contact.html_safe %></span>
+        <% elsif @listing.email %>
+          <strong>Contact:</strong> <span class="listing-email"><%= mail_to @listing.email, "Email" %></span>
         <% end %>
       </div>
       <br>
