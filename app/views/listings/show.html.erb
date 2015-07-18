@@ -56,7 +56,11 @@
       <% end %>
       <br>
       </div>
-      <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(@listing.updated_at) %> ago.</div>
+      <% if @listing.posted %>
+        <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(@listing.updated_at) %> ago.</div>
+      <% elsif @listing.updated_at %>
+        <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(@listing.updated_at) %> ago.</div>
+      <% end %>
       <br>
       <div>
         <span class="share">

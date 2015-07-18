@@ -14,6 +14,7 @@ task :get_jobs => :environment do
       puts "job was nil"
       next
     elsif job['created_at'] > (Time.now - 1.days)
+    # elsif Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :city => job['location'], :email => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github').valid?
       p "validated: #{Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :city => job['location'], :email => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github').valid?}"
       Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :contact => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github')
       puts "created a job"
