@@ -52,7 +52,9 @@
 
   <br>
 </div>
-        <div class="digg_pagination text-center"><%= will_paginate %></div>
+  <% unless params[:search] %>
+    <div class="digg_pagination text-center"><%= will_paginate %></div>
+  <% end %>
 <%# if current_user %>
 
 <br>

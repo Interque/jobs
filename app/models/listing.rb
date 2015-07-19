@@ -88,9 +88,9 @@ class Listing < ActiveRecord::Base
 
   def self.search(search)
     if search
-      Listing.where(['title LIKE ?', "#{search}"])
+      Listing.where(['city LIKE ?', "#{search}"])
     else
-      Listing.all
+      Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
     end
   end
 

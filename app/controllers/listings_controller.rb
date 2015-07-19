@@ -8,9 +8,12 @@ class ListingsController < ApplicationController
   # GET /listings.json
   def index
     # @listings = Listing.all
-    @listings = Listing.search(params[:search])
+    unless params[:search].blank?
+      @listings = Listing.search(params[:search])
+    else
+      @listings = Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
+    end
     @listing = Listing.new
-    @listings = Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
   end
 
   # GET /listings/1
