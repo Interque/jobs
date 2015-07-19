@@ -4,7 +4,7 @@ class Listing < ActiveRecord::Base
   validates :title, presence: true 
   validates :description, presence: true #, uniqueness: true
   validates :organization, presence: true
-  validates :city, presence: true
+  # validates :city, presence: true
 
 
 	validates :salary, inclusion: (1..8)
