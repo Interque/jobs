@@ -90,7 +90,7 @@ class Listing < ActiveRecord::Base
     if search
       Listing.where(['city LIKE ?', "#{search}"])
     else
-      Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
+      Listing.all
     end
   end
 
