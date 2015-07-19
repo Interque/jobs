@@ -7,7 +7,7 @@ task :get_jobs => :environment do
     if job.nil?
       puts "job was nil"
       next
-    elsif job['created_at'] > (Time.now - 1.days)
+    elsif job['created_at'] > (Time.now - 10.days)
     # elsif Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :city => job['location'], :email => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github').valid?
       if job['location'].include?(',')
         p "job['location']: #{job['location'].split(",").count}"

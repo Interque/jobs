@@ -5,6 +5,7 @@ class Listing < ActiveRecord::Base
   validates :description, presence: true #, uniqueness: true
   validates :organization, presence: true
   # validates :city, presence: true
+  validates :description, uniqueness: true
 
 
 	validates :salary, inclusion: (1..8)
@@ -24,12 +25,20 @@ class Listing < ActiveRecord::Base
 			'126k-150k'
 		elsif num == 7
 			'151k-200k'
-		elsif num == 8
-			'more than 200k'
-		end
-	end
+    elsif num == 8
+      'more than 200k'
+    end
+  end
 
-	def us_states
+  def self.search(search)
+    if search
+      Listing.where(['city LIKE ?', "#{search}"])
+    else
+      Listing.all
+    end
+  end
+
+  def us_states
     [
       ['Alabama', 'AL'],
       ['Alaska', 'AK'],
@@ -84,14 +93,6 @@ class Listing < ActiveRecord::Base
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
-	end
-
-  def self.search(search)
-    if search
-      Listing.where(['city LIKE ?', "#{search}"])
-    else
-      Listing.all
-    end
   end
 
   # def conditions
