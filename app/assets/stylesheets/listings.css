@@ -52,6 +52,7 @@
 .job-posting{
 	border-bottom: solid 1px #d3d3d3;
 	margin-right: 50%;
+	margin-top: 15px;
 }
 
 .edit-box {
@@ -79,6 +80,10 @@ nav.share{
 
 nav.share div {
 	float: left;
+}
+
+.listing-updated{
+	font-size: 10px;
 }
 
 modal-warning{
