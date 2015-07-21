@@ -91,7 +91,7 @@ task :stack_jobs => :environment do
       puts "entry summary: #{entry.summary}"
       puts "entry published: #{entry.published}"
       puts "categories: #{entry.categories}"
-      Listing.create(:title => position, :description => entry.summary, :organization => organization, :location => location, :city => city, :state => state, :contact => entry.url, :salary => 1, :user_id => 1, :posted => entry.published, :source => 'stackoverflow', :categories => entry.categories)
+      Listing.create(:title => position, :description => entry.summary, :organization => organization, :location => location, :city => city, :state => state, :contact => entry.url, :salary => 1, :user_id => 1, :posted => entry.published, :source => 'stackoverflow')
     else
       puts "job is too old"
     end
