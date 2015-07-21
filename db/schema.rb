@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718205636) do
+ActiveRecord::Schema.define(version: 20150721043138) do
 
   create_table "bootsy_image_galleries", force: true do |t|
     t.integer  "bootsy_resource_id"
@@ -27,24 +27,8 @@ ActiveRecord::Schema.define(version: 20150718205636) do
     t.datetime "updated_at"
   end
 
-  create_table "listings", force: true do |t|
-    t.text     "title"
-    t.text     "description"
-    t.text     "organization"
-    t.text     "email"
-    t.integer  "salary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "location"
-    t.integer  "user_id"
-    t.string   "city"
-    t.string   "state"
-    t.string   "source",       default: "interque"
-    t.datetime "posted"
-    t.string   "contact"
-  end
-
-  add_index "listings", ["user_id"], name: "index_listings_on_user_id"
+# Could not dump table "listings" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

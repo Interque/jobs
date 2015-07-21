@@ -44,6 +44,7 @@ gem 'sitemap_generator'
 gem 'httparty'
 
 gem 'whenever', require: false
+gem 'feedjira'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

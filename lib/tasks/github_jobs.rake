@@ -1,4 +1,5 @@
 require 'httparty'
+require 'feedjira'
 
 task :get_jobs => :environment do
   response = HTTParty.get('https://jobs.github.com/positions.json?description=ruby')
@@ -51,5 +52,48 @@ task :get_jobs => :environment do
   end
 end
 
-task :clean do
+task :stack_jobs => :environment do
+  url = "http://careers.stackoverflow.com/jobs/feed?searchTerm=ruby"
+  feed = Feedjira::Feed.fetch_and_parse(url)
+
+  feed.entries.each do |entry|
+    if entry.published > (Time.now - 1.days) || entry.title.include?("Miami")
+      puts "num entries: #{feed.entries.count}"
+      puts "entry title: #{entry.title}"
+      title_arr = entry.title.split('(')
+      p title_arr
+      if title_arr.length > 0
+        job_title = title_arr[0]
+        if job_title.split(' ').include?("at")
+          job_title_arr = job_title.split(/\s(at)/)
+          p job_title_arr
+          position = job_title_arr[0].rstrip.lstrip
+          p "position: #{position}"
+          organization = job_title_arr[2].rstrip.lstrip
+          p "organization: #{organization}"
+        end
+
+        city = title_arr[1].gsub(")", "").split(",")[0]
+
+        puts "job_title: #{job_title}"
+        puts "city: #{city}"
+
+        if title_arr[1].gsub(")", "").split(",")[1]
+          state = title_arr[1].gsub(")", "").split(",")[1].rstrip.lstrip
+          puts "state: #{state}"
+          puts ""
+          location = city + ", " + state
+        else
+          state = ""
+          location = city
+        end
+      end
+      puts "entry summary: #{entry.summary}"
+      puts "entry published: #{entry.published}"
+      puts "categories: #{entry.categories}"
+      Listing.create(:title => position, :description => entry.summary, :organization => organization, :location => location, :city => city, :state => state, :contact => entry.url, :salary => 1, :user_id => 1, :posted => entry.published, :source => 'stackoverflow', :categories => entry.categories)
+    else
+      puts "job is too old"
+    end
+  end
 end
