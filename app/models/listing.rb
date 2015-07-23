@@ -32,7 +32,7 @@ class Listing < ActiveRecord::Base
 
   def self.search(search)
     if search
-      Listing.where(['city LIKE ?', "#{search}"])
+      Listing.where(["city LIKE ? OR state LIKE ?", "#{search}", "#{search}"])
     else
       Listing.all
     end
