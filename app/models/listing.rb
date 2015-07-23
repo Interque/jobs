@@ -32,7 +32,7 @@ class Listing < ActiveRecord::Base
 
   def self.search(search)
     if search
-      Listing.where(["city LIKE ? OR state LIKE ?", "#{search}", "#{search}"])
+      Listing.where(["city LIKE ? OR state LIKE ?", "#{search}", "#{search}"]).order("updated_at DESC")
     else
       Listing.all
     end
