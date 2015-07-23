@@ -35,13 +35,17 @@
       <div>
 
         <strong>Description:</strong> <span class=<%= current_user == @listing.user ? "listing-description" : "non-editable" %>><%= @listing.description.html_safe %></span>
-      </div><br>
+      </div>
 
       <div>
-        <% if @listing.contact %>
-          <strong>Contact:</strong> <span class="listing-email"><%= @listing.contact.html_safe %></span>
-        <% elsif @listing.email %>
-          <strong>Contact:</strong> <span class="listing-email"><%= @listing.email.html_safe %></span>
+        <% if current_user %>
+          <% if @listing.contact %>
+            <strong>Contact:</strong> <span class="listing-email"><%= @listing.contact.html_safe %></span>
+          <% elsif @listing.email %>
+            <strong>Contact:</strong> <span class="listing-email"><%= @listing.email.html_safe %></span>
+          <% end %>
+        <% else %>
+          Please <%= link_to "login", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to see contact info for this listing!
         <% end %>
       </div>
       <br>
@@ -73,7 +77,7 @@
       <%# if current_user && @listing.user_id == current_user.id %>
         <!-- <div class="links text-center"> -->
           <%# link_to '', edit_listing_path(@listing), class: "edit-button glyphicon glyphicon-edit" %>
-          <%# link_to '', @listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
+          <%# link_to '', @listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %>
         <!-- </div> -->
       <%# end %>
       <br>
