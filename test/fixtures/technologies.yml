@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tech: MyString
+  posted: 2015-07-24 22:55:56
+  city: MyString
+  state: MyString
+
+two:
+  tech: MyString
+  posted: 2015-07-24 22:55:56
+  city: MyString
+  state: MyString

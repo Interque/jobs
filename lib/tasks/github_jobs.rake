@@ -98,3 +98,53 @@ task :stack_jobs => :environment do
   end
 end
 
+task :count_jobs => :environment do
+  url = "http://careers.stackoverflow.com/jobs/feed"
+  feed = Feedjira::Feed.fetch_and_parse(url)
+  
+  feed.entries.each do |entry|
+
+    title_arr = entry.title.split('(')
+    p title_arr
+
+    if title_arr.length > 0
+      job_title = title_arr[0]
+      if job_title.split(' ').include?("at")
+        job_title_arr = job_title.split(/\s(at)/)
+        p job_title_arr
+        position = job_title_arr[0].rstrip.lstrip
+        p "position: #{position}"
+        organization = job_title_arr[2].rstrip.lstrip
+        p "organization: #{organization}"
+      end
+
+      city = title_arr[1].gsub(")", "").split(",")[0]
+
+      puts "job_title: #{job_title}"
+      puts "city: #{city}"
+
+      if title_arr[1].gsub(")", "").split(",")[1]
+        state = title_arr[1].gsub(")", "").split(",")[1].rstrip.lstrip
+        puts "state: #{state}"
+        puts ""
+        location = city + ", " + state
+      else
+        state = ""
+        location = city
+      end
+    end
+
+    puts entry
+    entry.categories.each do |cat|
+      puts "cat: #{cat}"
+      Technology.create(:tech => cat, :city => city, :state => state, :posted => entry.published)
+    end
+  end
+end
+
+
+
+
+
+
+
