@@ -2,7 +2,7 @@ require 'httparty'
 require 'feedjira'
 
 task :get_jobs => :environment do
-  response = HTTParty.get('https://jobs.github.com/positions.json?description=ruby')
+  response = HTTParty.get('https://jobs.github.com/positions.json')
 
   response.each do |job|
     if job.nil?
@@ -91,7 +91,7 @@ task :stack_jobs => :environment do
       puts "entry summary: #{entry.summary}"
       puts "entry published: #{entry.published}"
       puts "categories: #{entry.categories}"
-      Listing.create(:title => position, :description => entry.summary, :organization => organization, :location => location, :city => city, :state => state, :contact => entry.url, :salary => 1, :user_id => 1, :posted => entry.published, :source => 'stackoverflow')
+      Listing.create(:title => position, :description => entry.summary, :organization => organization, :location => location, :city => city, :state => state, :contact => entry.url, :salary => 1, :user_id => 1, :posted => entry.published, :source => 'stackoverflow', :category => entry.categories)
     else
       puts "job is too old"
     end
@@ -113,9 +113,7 @@ task :count_jobs => :environment do
         job_title_arr = job_title.split(/\s(at)/)
         p job_title_arr
         position = job_title_arr[0].rstrip.lstrip
-        p "position: #{position}"
         organization = job_title_arr[2].rstrip.lstrip
-        p "organization: #{organization}"
       end
 
       city = title_arr[1].gsub(")", "").split(",")[0]
@@ -139,6 +137,16 @@ task :count_jobs => :environment do
       puts "cat: #{cat}"
       Technology.create(:tech => cat, :city => city, :state => state, :posted => entry.published)
     end
+  end
+end
+
+task :how_many => :environment do
+  # hsh = {}
+  start_time = Time.now
+  puts "start_time: #{start_time}"
+  Technology.find_each do |technology|
+    puts "technology name: #{technology.tech}"
+    puts "number of #{technology.tech} jobs: #{Technology.where(:tech => technology.tech).count}"
   end
 end
 
