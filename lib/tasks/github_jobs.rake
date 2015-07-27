@@ -42,12 +42,17 @@ task :get_jobs => :environment do
         puts "no comma or slash"
         puts "city: #{city}"
       end
-
+      if job['company_url'] 
+        p "company_url: #{job['company_url']}"
+      end
       p "validated: #{Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :email => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github').valid?}"
-      Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :contact => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github')
+      Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :contact => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github', :web_url => job['company_url'])
       puts "created a job"
     else 
       puts "no new jobs"
+      if job['company_url'] 
+        p "company_url: #{job['company_url']}"
+      end
     end
   end
 end
@@ -140,12 +145,20 @@ task :count_jobs => :environment do
   end
 end
 
+task :inspect_stack do
+  url = "http://careers.stackoverflow.com/jobs/feed"
+  feed = Feedjira::Feed.fetch_and_parse(url)
+
+  p feed.entries.inspect
+
+end
+
 task :how_many => :environment do
   # hsh = {}
-  Technology.all.each do |technology|
-    puts "technology name: #{technology.tech}"
-    puts "number of #{technology.tech} jobs: #{Technology.where(:tech => technology.tech).count}"
-  end
+  # Technology.all.each do |technology|
+  #   puts "technology name: #{technology.tech}"
+  #   puts "number of #{technology.tech} jobs: #{Technology.where(:tech => technology.tech).count}"
+  # end
 end
 
 
