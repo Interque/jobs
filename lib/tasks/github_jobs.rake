@@ -2,7 +2,7 @@ require 'httparty'
 require 'feedjira'
 
 task :get_jobs => :environment do
-  response = HTTParty.get('https://jobs.github.com/positions.json?description=ruby')
+  response = HTTParty.get('https://jobs.github.com/positions.json')
 
   response.each do |job|
     if job.nil?
@@ -91,10 +91,66 @@ task :stack_jobs => :environment do
       puts "entry summary: #{entry.summary}"
       puts "entry published: #{entry.published}"
       puts "categories: #{entry.categories}"
-      Listing.create(:title => position, :description => entry.summary, :organization => organization, :location => location, :city => city, :state => state, :contact => entry.url, :salary => 1, :user_id => 1, :posted => entry.published, :source => 'stackoverflow')
+      Listing.create(:title => position, :description => entry.summary, :organization => organization, :location => location, :city => city, :state => state, :contact => entry.url, :salary => 1, :user_id => 1, :posted => entry.published, :source => 'stackoverflow', :category => entry.categories)
     else
       puts "job is too old"
     end
   end
 end
+
+task :count_jobs => :environment do
+  url = "http://careers.stackoverflow.com/jobs/feed"
+  feed = Feedjira::Feed.fetch_and_parse(url)
+  
+  feed.entries.each do |entry|
+
+    title_arr = entry.title.split('(')
+    p title_arr
+
+    if title_arr.length > 0
+      job_title = title_arr[0]
+      if job_title.split(' ').include?("at")
+        job_title_arr = job_title.split(/\s(at)/)
+        p job_title_arr
+        position = job_title_arr[0].rstrip.lstrip
+        organization = job_title_arr[2].rstrip.lstrip
+      end
+
+      city = title_arr[1].gsub(")", "").split(",")[0]
+
+      puts "job_title: #{job_title}"
+      puts "city: #{city}"
+
+      if title_arr[1].gsub(")", "").split(",")[1]
+        state = title_arr[1].gsub(")", "").split(",")[1].rstrip.lstrip
+        puts "state: #{state}"
+        puts ""
+        location = city + ", " + state
+      else
+        state = ""
+        location = city
+      end
+    end
+
+    puts entry
+    entry.categories.each do |cat|
+      puts "cat: #{cat}"
+      # Technology.create(:tech => cat, :city => city, :state => state, :posted => entry.published)
+    end
+  end
+end
+
+task :how_many => :environment do
+  # hsh = {}
+  Technology.all.each do |technology|
+    puts "technology name: #{technology.tech}"
+    puts "number of #{technology.tech} jobs: #{Technology.where(:tech => technology.tech).count}"
+  end
+end
+
+
+
+
+
+
 
