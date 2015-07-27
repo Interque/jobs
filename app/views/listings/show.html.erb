@@ -45,7 +45,8 @@
             <strong>Contact:</strong> <span class="listing-email"><%= @listing.email.html_safe %></span>
           <% end %>
         <% else %>
-          Please <%= link_to "login", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to see contact info for this listing!
+          <div class="alert alert-info" role="alert">Please <%= link_to "login", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to see contact info for this listing!
+          </div>
         <% end %>
       </div>
       <br>
