@@ -2,7 +2,7 @@ require 'httparty'
 require 'feedjira'
 
 task :get_jobs => :environment do
-  response = HTTParty.get('https://jobs.github.com/positions.json')
+  response = HTTParty.get('https://jobs.github.com/positions.json')  
 
   response.each do |job|
     if job.nil?
@@ -137,12 +137,12 @@ task :count_jobs => :environment do
       end
     end
 
-    puts entry
     entry.categories.each do |cat|
       puts "cat: #{cat}"
-      # Technology.create(:tech => cat, :city => city, :state => state, :posted => entry.published)
+      Technology.create(:name => cat, :city => city, :state => state, :posted => entry.published)
     end
   end
+  puts "num entries: #{feed.entries.count}"
 end
 
 task :inspect_stack do
@@ -154,11 +154,19 @@ task :inspect_stack do
 end
 
 task :how_many => :environment do
-  # hsh = {}
-  # Technology.all.each do |technology|
-  #   puts "technology name: #{technology.tech}"
-  #   puts "number of #{technology.tech} jobs: #{Technology.where(:tech => technology.tech).count}"
-  # end
+  # this is basically the view...but sorted
+  total = 0
+  technologies = []
+  Technology.all.each do |technology|
+    puts "technologies.include?(technology): #{technologies.include?(technology)}"
+    unless technologies.include?(technology.name)
+      technologies << technology.name
+      this_num = Technology.where(:name => technology.name).count
+      puts "number of #{technology.name} jobs: #{Technology.where(:name => technology.name).count}"
+      total += this_num
+    end
+  end
+  puts total
 end
 
 
