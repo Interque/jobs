@@ -1,0 +1,19 @@
+<h4 class="text-center">Technology Demand</h4>
+<table class="table">
+  <th class="text-center">Technology</th>
+  <th class="text-center">Number of Jobs</th>
+  
+  <% technologies = [] %>
+  <% Technology.all.each do |t| %>
+    <% unless technologies.include?(t.name) %>
+      <% technologies << t.name %>
+      <% if Technology.where(:name => t.name).count > 1 %>
+        <tr>
+          <td class="text-center"><%= t.name %></td>
+          <td class="text-center"><%= Technology.where(:name => t.name).count %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+
+</table>
