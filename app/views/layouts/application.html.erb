@@ -35,7 +35,7 @@
 		    <div class="search-container">
 		      <%= form_tag listings_path, :method => 'get' do %>
 		        <div id="search-bar">
-		          <%= text_field_tag :search, params[:search], class: "search-bar", placeholder: "filter by city or state" %>
+		          <%= text_field_tag :search, params[:search], class: "search-bar", placeholder: "filter jobs by city or state" %>
 		          <%= submit_tag "Filter", :name => nil, class: "search-button" %>
 		        </div>
 		      <% end %>

@@ -113,7 +113,11 @@ $(document).on('ready page:load', function(){
 
 	$(".hide-stuff").hide();
 	
-
+	$('tr').hover(function(){
+		$(this).addClass("change-background");
+	}, function(){
+		$(this).removeClass("change-background");
+	})
 });
 
 

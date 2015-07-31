@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'technologies/index', :path => 'data'
+  get 'technologies/index', as: 'data', :path => 'data'
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   devise_for :users

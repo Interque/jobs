@@ -1,19 +1,59 @@
 <h4 class="text-center">Technology Demand</h4>
-<table class="table">
-  <th class="text-center">Technology</th>
-  <th class="text-center">Number of Jobs</th>
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
+<ul class="nav nav-tabs">
+  <% if !params[:pie] && !params[:table] %>
+    <li role="presentation" class="active">
+  <% else %>
+    <li role="presentation">
+  <% end %>
+    <%= link_to "column", data_path(column: true) %>
+  </li>
+
+  <% if params[:pie] %>
+    <li role="presentation" class="active">
+  <% else %>
+    <li role="presentation">
+  <% end %>
+      <%= link_to "pie", data_path(pie: true) %>
+  </li>
+
+  <% if params[:table] %>
+    <li role="presentation" class="active">
+  <% else %>
+    <li role="presentation">
+  <% end %>
+    <%= link_to "table", data_path(table: true) %>
+  </li>
+</ul>
   
-  <% technologies = [] %>
-  <% Technology.all.each do |t| %>
-    <% unless technologies.include?(t.name) %>
-      <% technologies << t.name %>
-      <% if Technology.where(:name => t.name).count > 1 %>
-        <tr>
-          <td class="text-center"><%= t.name %></td>
-          <td class="text-center"><%= Technology.where(:name => t.name).count %></td>
-        </tr>
+<% if params[:column] %>
+  <%= column_chart Technology.group(:name).count, min: 5 %>
+  <%# bar_chart Technology.group(:name).count, min: 5 %>
+<% elsif params[:pie] %>
+  <%= pie_chart Technology.group(:name).count, min: 5 %>
+<% elsif params[:table] %>
+  <table class="table" align="center">
+    <th class="text-center">Technology</th>
+    <th class="text-center">Postings</th>
+    
+    <% technologies = [] %>
+    <% @technologies.each do |t| %>
+      
+      <% unless technologies.include?(t.name) %>
+        <% technologies << t.name %>
+        <% if Technology.where(:name => t.name).count > 5 %>
+          <tr>
+            <td class="text-center"><%= t.name %></td>
+            <td class="text-center"><%= Technology.where(:name => t.name).count %></td>
+          </tr>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
+  </table>
 
-</table>
+<% else %>
+  <%= column_chart Technology.group(:name).count, min: 5 %>
+<% end %>
+
+

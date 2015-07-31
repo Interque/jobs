@@ -169,6 +169,18 @@ task :how_many => :environment do
   puts total
 end
 
+task :clean_count => :environment do
+  Technology.all.each do |t|
+    if Technology.where(:name => t.name).count <= 5
+      t.destroy
+    else
+      puts "#{t.name} made the cut"
+    end
+  end
+
+  puts Technology.count
+end
+
 
 
 

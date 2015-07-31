@@ -1,3 +1,17 @@
 // Place all the styles related to the technologies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.table th { 
+     border-top: none !important; 
+ }
+
+
+.table {
+  width: 80% !important;
+}
+
+.change-background{
+  background-color: #F3F315;
+  font-weight: bold;
+}
