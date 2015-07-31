@@ -17,19 +17,42 @@
 <header>
 	<nav class="navbar">
 	<!-- MAIN LOGO -->
-		<div id="logo" class="nav-logo"><%= link_to image_tag('interque-white.png', size: "500x91"), root_path, class:"hidden-xs" %></div>
+		<div id="logo" class="nav-logo">
+      <%= link_to image_tag('interque-white.png', size: "500x91"), root_path, class:"hidden-xs" %>
+    </div>
 	<!-- MOBILE LOGO -->
-		<div class="visible-xs text-center"><%= image_tag('iq_Logo.png', width:"275")  %></div>
+		<div class="visible-xs text-center">
+      <%= image_tag('iq_Logo.png', width:"275")  %>
+    </div>
+
 		<div class="hidden-xs buttons">
-      <%= link_to 'Home', "http://interque.co", class: "btn btn-success" %>
+      <span class="btn-group" role="group">
+        <!-- home button -->
+        <%= link_to 'Home', "http://interque.co", class: "btn btn-success" %>
 
-    	<!-- Button trigger modal -->
-		    <button type="button" class="btn btn-primary new-listing" data-toggle="modal" data-target="#myModal">
-		      New Listing
-		      <%# link_to 'New Listing', new_listing_path %>
-		    </button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary new-listing" data-toggle="modal" data-target="#myModal">
+          New Listing
+          <%# link_to 'New Listing', new_listing_path %>
+        </button>
 
-		    <%= link_to 'Job Board', listings_path, class: "btn btn-success" %>
+         <!-- jobs button w/ dropdown -->
+         <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Job Board
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="http://jobs.interque.co">Listings</a></li>
+              <li><a href="http://jobs.interque.co/data">Data</a></li>
+            </ul>
+          
+        </div>
+      </span>
+		    <%# link_to 'Job Board', listings_path, class: "btn btn-success dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: true, expanded: false } %>
+          <!-- <ul class="dropdown-menu">
+            <li><a href="http://jobs.interque.co">Listings</a></li>
+            <li><a href="#">Data</a></li>
+          </ul> -->
 
 		    <!-- Search -->
 		    <div class="search-container">
@@ -39,6 +62,8 @@
 		          <%= submit_tag "Filter", :name => nil, class: "search-button" %>
 		        </div>
 		      <% end %>
+        </div>
+
 		  </div>
 		</div>
 
