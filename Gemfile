@@ -42,9 +42,14 @@ gem 'bootsy'
 gem 'shareable'
 gem 'sitemap_generator'
 gem 'httparty'
-
-gem 'whenever', require: false
 gem 'feedjira'
+
+############
+gem 'chartkick'
+
+# gem 'whenever', require: false
+
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

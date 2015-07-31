@@ -17,6 +17,7 @@
 //= require_tree .
 //= require bootstrap-modal
 //= require bootstrap-modalmanager
+//= require chartkick
 
 $(document).on('ready page:load', function(){
 	$('.editable').editable();
