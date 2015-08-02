@@ -7,6 +7,9 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
+    if current_user && current_user.admin
+      raise "this is a test error for exception handling"
+    end
     # @listings = Listing.all
     if params[:search].blank?
       @listings = Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
