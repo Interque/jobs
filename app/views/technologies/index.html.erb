@@ -26,7 +26,7 @@
     <%= link_to "table", data_path(table: true) %>
   </li>
 </ul>
-  
+  <%# column_chart Technology.group(:name).where(:state => 'FL').count, min: 5 %>
 <% if params[:column] %>
   <%= column_chart Technology.group(:name).count, min: 5 %>
   <%# bar_chart Technology.group(:name).count, min: 5 %>

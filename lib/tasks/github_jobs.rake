@@ -139,7 +139,14 @@ task :count_jobs => :environment do
 
     entry.categories.each do |cat|
       puts "cat: #{cat}"
-      Technology.create(:name => cat, :city => city, :state => state, :posted => entry.published)
+      if cat == 'ruby'
+        name = 'ruby-on-rails'
+      elsif cat == 'html5'
+        name = 'html'
+      else
+        name = cat
+      end
+      Technology.create(:name => name, :city => city, :state => state, :posted => entry.published)
     end
   end
   puts "num entries: #{feed.entries.count}"
@@ -167,6 +174,17 @@ task :how_many => :environment do
     end
   end
   puts total
+end
+
+task :fix_overlap => :environment do
+  puts "in fix_overlap"
+  Technology.find_each do |t|
+    if t.name == 'ruby' || t.name == 'html5'
+      t.destroy
+    else
+      puts t.name
+    end
+  end
 end
 
 task :clean_count => :environment do
