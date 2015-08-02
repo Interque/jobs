@@ -43,6 +43,7 @@ gem 'shareable'
 gem 'sitemap_generator'
 gem 'httparty'
 gem 'feedjira'
+gem 'exception_notification'
 
 ############
 gem 'chartkick'
