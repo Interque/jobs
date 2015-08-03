@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'charts/tech_name'
+
   get 'technologies/index', as: 'data', :path => 'data'
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'

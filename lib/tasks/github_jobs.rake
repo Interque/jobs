@@ -103,7 +103,7 @@ task :stack_jobs => :environment do
   end
 end
 
-task :count_jobs => :environment do
+task :create_tech => :environment do
   url = "http://careers.stackoverflow.com/jobs/feed"
   feed = Feedjira::Feed.fetch_and_parse(url)
   
@@ -136,17 +136,28 @@ task :count_jobs => :environment do
         location = city
       end
     end
-
+    
+    ignore_arr = ["mobile", "agile", "mongodb", "nosql", "postgresql", "sysadmin", "git"]
+    
     entry.categories.each do |cat|
       puts "cat: #{cat}"
-      if cat == 'ruby'
+      if cat.include?('ruby') # for ruby
         name = 'ruby-on-rails'
-      elsif cat == 'html5'
+      elsif cat.include?('html') # for html5
         name = 'html'
+      elsif cat.include?('css') # for css3
+        name = 'css'
+      elsif cat.include?('angular')
+        name = 'angularjs'
+      elsif cat.include?('backbone')
+        name = 'backbone.js'
       else
         name = cat
       end
-      Technology.create(:name => name, :city => city, :state => state, :posted => entry.published)
+
+      unless ignore_arr.include?(name)
+        Technology.create(:name => name, :city => city, :state => state, :posted => entry.published)
+      end
     end
   end
   puts "num entries: #{feed.entries.count}"
@@ -156,7 +167,15 @@ task :inspect_stack do
   url = "http://careers.stackoverflow.com/jobs/feed"
   feed = Feedjira::Feed.fetch_and_parse(url)
 
-  p feed.entries.inspect
+  # p feed.entries.inspect
+
+  feed.entries.each do |entry|
+    entry.categories.each do |name|
+      if name.include?('node')
+        puts name
+      end
+    end
+  end
 
 end
 
@@ -177,9 +196,12 @@ task :how_many => :environment do
 end
 
 task :fix_overlap => :environment do
+  # should only have had to run once on first deploy
+  # then run create_tech
+  # then clean_count
   puts "in fix_overlap"
   Technology.find_each do |t|
-    if t.name == 'ruby' || t.name == 'html5'
+    if t.name == 'ruby' || t.name == 'html5' || t.name == 'css3'
       t.destroy
     else
       puts t.name
@@ -187,9 +209,22 @@ task :fix_overlap => :environment do
   end
 end
 
+task :check_names => :environment do
+  # was just checking for other forms
+  Technology.find_each do |t|
+    if t.name.include?('node')
+      puts t.name
+    end
+  end
+end
+
 task :clean_count => :environment do
+  # clean after running create_tech to get rid tech that occurs infrequently
+  ignore_arr = ["mobile", "agile", "mongodb", "nosql", "postgresql", "sysadmin", "git"]
   Technology.all.each do |t|
-    if Technology.where(:name => t.name).count <= 5
+    if Technology.where(:name => t.name).count <= 40
+      t.destroy
+    elsif ignore_arr.include?(t.name)
       t.destroy
     else
       puts "#{t.name} made the cut"
