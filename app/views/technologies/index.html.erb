@@ -26,12 +26,14 @@
     <%= link_to "table", data_path(table: true) %>
   </li>
 </ul>
-  
+  <%# column_chart Technology.group(:name).where(:state => 'FL').count, min: 5 %>
 <% if params[:column] %>
-  <%= column_chart Technology.group(:name).count, min: 5 %>
+  <%# column_chart Technology.group(:name).count, min: 40 %>
+  <%= column_chart charts_tech_name_path %>
   <%# bar_chart Technology.group(:name).count, min: 5 %>
 <% elsif params[:pie] %>
-  <%= pie_chart Technology.group(:name).count, min: 5 %>
+  <%# pie_chart Technology.group(:name).count, min: 40 %>
+  <%= pie_chart charts_tech_name_path %>
 <% elsif params[:table] %>
   <table class="table" align="center">
     <th class="text-center">Technology</th>
@@ -42,7 +44,7 @@
       
       <% unless technologies.include?(t.name) %>
         <% technologies << t.name %>
-        <% if Technology.where(:name => t.name).count > 5 %>
+        <% if Technology.where(:name => t.name).count > 40 %>
           <tr>
             <td class="text-center"><%= t.name %></td>
             <td class="text-center"><%= Technology.where(:name => t.name).count %></td>
@@ -53,7 +55,7 @@
   </table>
 
 <% else %>
-  <%= column_chart Technology.group(:name).count, min: 5 %>
+  <%= column_chart Technology.group(:name).count, min: 40 %>
 <% end %>
 
 

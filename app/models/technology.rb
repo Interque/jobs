@@ -1,6 +1,9 @@
 class Technology < ActiveRecord::Base
-  validates :posted, uniqueness: true
+  validates :posted, presence: true
   validates :name, presence: true
+  validates :name, :uniqueness => { :scope => :posted }
+  validates :city, presence: true
+  validates :state, presence: true
 
   def self.summarized_info
     @top_count = 5
