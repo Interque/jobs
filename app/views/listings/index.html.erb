@@ -5,6 +5,7 @@
 <div>
   <% @listings.each do |listing| %>
     <div class="job-posting col-md-6 col-md-offset-3" data-pk="<%= listing.id %>">
+      
       <div>
        <p>Work at <strong><%= listing.organization %></strong> as a <%= link_to listing.title, listing_path(listing) %> in  
         <% if listing.state && listing.city %>

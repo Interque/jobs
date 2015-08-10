@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730023620) do
+ActiveRecord::Schema.define(version: 20150804045809) do
 
   create_table "bootsy_image_galleries", force: true do |t|
     t.integer  "bootsy_resource_id"
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 20150730023620) do
   end
 
   add_index "listings", ["user_id"], name: "index_listings_on_user_id"
+
+  create_table "snapshots", force: true do |t|
+    t.string   "name"
+    t.integer  "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "technologies", force: true do |t|
     t.string   "name"

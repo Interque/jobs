@@ -1,3 +1,4 @@
+
 <h4 class="text-center">Technology Demand</h4>
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 
@@ -28,34 +29,50 @@
 </ul>
   <%# column_chart Technology.group(:name).where(:state => 'FL').count, min: 5 %>
 <% if params[:column] %>
-  <%# column_chart Technology.group(:name).count, min: 40 %>
-  <%= column_chart charts_tech_name_path %>
+  <%# cache do %>
+    <%# column_chart Technology.group(:name).count, min: 40 %>
+  <%# end %>
+  <%# cache do %>
+    <%# column_chart charts_tech_name_path %>
+    <%# @snapshots = Snapshot.all %>
+    <%# column_chart @snapshots.map { |tech| :name => tech.name, :data => tech.number } %>
+    <%# column_chart [{name: 'ruby', data: 12}, {name: 'python', data: 14}] %>
+  <%# end %>
   <%# bar_chart Technology.group(:name).count, min: 5 %>
 <% elsif params[:pie] %>
   <%# pie_chart Technology.group(:name).count, min: 40 %>
-  <%= pie_chart charts_tech_name_path %>
+  <%# cache do %>
+    <%# pie_chart charts_tech_name_path %>
+    <%= pie_chart [{ name: "something", number: 2 }, {name: "else", number: 3}, {name: "again", number: 4}] %>
+  <%# end %>
+  
 <% elsif params[:table] %>
   <table class="table" align="center">
     <th class="text-center">Technology</th>
     <th class="text-center">Postings</th>
     
     <% technologies = [] %>
-    <% @technologies.each do |t| %>
+    <%# @technologies.each do |t| %>
       
-      <% unless technologies.include?(t.name) %>
-        <% technologies << t.name %>
-        <% if Technology.where(:name => t.name).count > 40 %>
-          <tr>
-            <td class="text-center"><%= t.name %></td>
-            <td class="text-center"><%= Technology.where(:name => t.name).count %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    <% end %>
+      <%# unless technologies.include?(t.name) %>
+        <%# technologies << t.name %>
+        <%# if Technology.where(:name => t.name).count > 40 %>
+          
+            <tr>
+              <td class="text-center"><%# t.name %></td>
+              <td class="text-center"><%# Technology.where(:name => t.name).count %></td>
+            </tr>
+
+        <%# end %>
+      <%# end %>
+    <%# end %>
   </table>
 
 <% else %>
-  <%= column_chart Technology.group(:name).count, min: 40 %>
+  <%# cache do %>
+    <%# column_chart charts_tech_name_path %>
+    <%= column_chart [['something', 2], ['else', 3], ['again', 4]] %>
+  <%# end %>
 <% end %>
 
 

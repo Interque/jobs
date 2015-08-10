@@ -189,6 +189,7 @@ task :how_many => :environment do
       technologies << technology.name
       this_num = Technology.where(:name => technology.name).count
       puts "number of #{technology.name} jobs: #{Technology.where(:name => technology.name).count}"
+      Snapshot.create(:name => technology.name, :number => this_num)
       total += this_num
     end
   end
