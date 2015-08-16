@@ -1,10 +1,7 @@
 class Listing < ActiveRecord::Base
 	belongs_to :user
 
-  validates :title, presence: true 
-  validates :description, presence: true #, uniqueness: true
-  validates :organization, presence: true
-  # validates :city, presence: true
+  validates :title, :description, :organization, :city, :state, presence: true
   validates :description, uniqueness: true
 
 
