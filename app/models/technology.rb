@@ -1,9 +1,6 @@
 class Technology < ActiveRecord::Base
-  validates :posted, presence: true
-  validates :name, presence: true
+  validates :posted, :name, :city, :state, presence: true
   validates :name, :uniqueness => { :scope => :posted }
-  validates :city, presence: true
-  validates :state, presence: true
   validates :state, length: { minimum: 1 }
 
   def self.summarized_info
