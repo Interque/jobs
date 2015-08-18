@@ -28,4 +28,6 @@ $(document).on('ready page:load', function(){
 	}
 
   $.fn.editable.defaults.mode = 'inline';
+
+  Turbolinks.enableProgressBar();
 });
