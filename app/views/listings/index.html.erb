@@ -8,72 +8,33 @@
       <div>
        <p>Work at <strong><%= listing.organization %></strong> as a <%= link_to listing.title, listing_path(listing) %> in  
         <% if listing.state && listing.city %>
-        <%= listing.city %>, <%= listing.state %>
-      <% elsif listing.city && !listing.state %>
-        <%= listing.city %>
-      <% elsif listing.location %>
-        <%= listing.location %>
-      <% end %>
+          <%= listing.city %>, <%= listing.state %>
+        <% elsif listing.city && !listing.state %>
+          <%= listing.city %>
+        <% elsif listing.location %>
+          <%= listing.location %>
+        <% end %>
       <span class="listing-updated">(<%= time_ago_in_words(listing.updated_at) %> ago)</span>
+      
       <% if (current_user && listing.user_id == current_user.id) || (current_user && current_user.admin) %>
           <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
           <%= link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
       <% end %>
       </p> 
-      <!-- <h4 class="text-center"> <span class=<%# current_user == listing.user || current_user && current_user.admin ? "listing-title" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.title %> </span></h4> -->
       </div>
-      <!-- <div> -->
-        <!-- <strong>Organization:</strong> <span class=<%# current_user == listing.user || current_user && current_user.admin ? "listing-organization" : "non-editable" %> data-pk="<%= listing.id %>"><%# listing.organization %></span> -->
-      <!-- </div><br> -->
-    <div class="hide-stuff">
-      <div>
-        <strong>Description:</strong> <span class=<%= current_user == listing.user || current_user && current_user.admin ? "listing-description" : "non-editable" %> data-pk="<%= listing.id %>"><%= listing.description.html_safe %></span>
-      </div><br>
-
-      <div>
-        <strong>Contact:</strong> <span class="listing-email" data-pk="<%= listing.id %>"><%= listing.email %></span>
-      </div>
-      <br>
-      <div>
-        <strong>Salary:</strong> <span class="listing-salary"><%= listing.convert_range(listing.salary) %></span>
-      </div>
-      <br>
+      
+  
     </div>
-      <%# if listing.state && listing.city %>
-        <!-- <div style="padding-bottom: 10px;"><strong>Location:</strong> <%# listing.city %>, <%# listing.state %> -->
-      <%# elsif listing.city && !listing.state %>
-        <!-- <div style="padding-bottom: 10px;"><strong>Location:</strong> <%# listing.city %> -->
-      <%# elsif listing.location %>
-        <!-- <div style="padding-bottom: 10px;"><strong>Location:</strong> <%# listing.location %> -->
-      <%# end %>
-      <!-- <br> -->
-      <!-- </div> -->
-      <!-- <div style="padding-bottom: 5px;"><strong>Posted:</strong> <%# time_ago_in_words(listing.updated_at) %> ago.</div> -->
-
-      <!-- <br> -->
-
-        <!-- <div class="links text-center"> -->
-          <!-- <%# link_to 'View Full Listing', listing_path(listing) %><br> -->
-      <%# if (current_user && listing.user_id == current_user.id) || (current_user && current_user.admin) %>
-          <%# link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
-          <!-- <%# link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br> -->
-      <%# end %>
-        <!-- </div> -->
-      <br>
-    </div>
-    <br>
+    
   <% end %>
-
-  <br>
 </div>
-  <% unless params[:search] %>
-    <div class="digg_pagination text-center"><%= will_paginate %></div>
-  <% end %>
-<%# if current_user %>
 
-<br>
+  
+    <% unless params[:search] %>
+      <div class="digg_pagination col-md-12 col-md-offset-5"><%= will_paginate %></div>
+    <% end %>
+  
 
-<%# else %>
 
 <!--   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
     <%# link_to 'New Listing', sign %>

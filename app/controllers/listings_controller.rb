@@ -9,7 +9,7 @@ class ListingsController < ApplicationController
   def index
     # @listings = Listing.all
     if params[:search].blank?
-      @listings = Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
+      @listings = Listing.page(params[:page]).per_page(12).order(:created_at => :desc)
     else
       @listings = Listing.search(params[:search])
     end
