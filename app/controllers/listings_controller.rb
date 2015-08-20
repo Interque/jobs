@@ -44,7 +44,9 @@ class ListingsController < ApplicationController
       if @listing.save
         format.html { redirect_to listing_path(@listing), notice: 'Listing was successfully created.' }
         format.json { render :show, status: :created, location: @listing }
-        post_to_slack()
+        p "listing state: #{@listing.state}"
+        post_to_slack(@listing.id)
+
       else
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -80,14 +82,21 @@ class ListingsController < ApplicationController
     end
   end
 
-  def post_to_slack
-    payload = { text: "This is a line of text from the jobs app.\nAnd this is another line of text from the app.", username: "interque", icon_url: "https://drive.google.com/file/d/0BzITPMDG60vQemNXMWtQSUFLYVk/view" }
-    p payload
-    p "#{'!'*20}"
-    p payload.to_json
-    response = HTTParty.post('https://hooks.slack.com/services/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', body: payload.to_json )
+  def post_to_slack(app_id)
+    job = Listing.find(app_id)
+    p "state: #{job.state}"
+    p "job.organization: #{job.organization}"
+    if job.state == 'FL'
+      base_url = "<http://localhost:3000/listings/#{app_id}>"
+      # base_url = "<http://jobs.interque/listings/#{app_id}>"
+      payload = { text: "TEST New job opportunity with #{job.organization} in #{job.city}, #{job.state}\n #{base_url}", username: "interque" }
+      p payload
+      p "#{'!'*20}"
+      p payload.to_json
+      response = HTTParty.post('https://hooks.slack.com/services/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', body: payload.to_json )
 
-    p response.inspect
+      p response.inspect
+    end
   end
 
   private
