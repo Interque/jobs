@@ -84,11 +84,10 @@ class ListingsController < ApplicationController
 
   def post_to_slack(app_id)
     job = Listing.find(app_id)
-    p "state: #{job.state}"
-    p "job.organization: #{job.organization}"
+
     if job.state == 'FL'
-      base_url = "<http://localhost:3000/listings/#{app_id}>"
-      # base_url = "<http://jobs.interque/listings/#{app_id}>"
+      # base_url = "<http://localhost:3000/listings/#{app_id}>"
+      base_url = "<http://jobs.interque/listings/#{app_id}>"
       payload = { text: "TEST New job opportunity with #{job.organization} in #{job.city}, #{job.state}\n #{base_url}", username: "interque" }
       p payload
       p "#{'!'*20}"
