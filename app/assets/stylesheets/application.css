@@ -123,6 +123,10 @@ body > header > nav > div.visible-xs.text-center.mobile-signin > a:nth-child(2) 
   color: #fff;
 }
 
+body > header > nav > div.visible-xs.text-center.mobile-signin > a:nth-child(3) {
+  color: #fff;
+}
+
 @media only screen and (max-width : 400px) {
   .page-title {
     margin-top: 0px;
