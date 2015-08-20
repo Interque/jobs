@@ -1,46 +1,62 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Jobs</title>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
- 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-  <%= favicon_link_tag 'favicon.ico' %>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/img/loading.gif">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/img/clear.png">
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-</head>
+  <head>
+    <title>Jobs</title>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <%= favicon_link_tag 'favicon.ico' %>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/img/loading.gif">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/img/clear.png">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  </head>
+
 <header>
-	<nav class="navbar">
-	<!-- MAIN LOGO -->
-		<div id="logo" class="nav-logo"><%= link_to image_tag('interque-white.png', size: "500x91"), root_path, class:"hidden-xs" %></div>
-	<!-- MOBILE LOGO -->
-		<div class="visible-xs text-center"><%= image_tag('iq_Logo.png', width:"275")  %></div>
-		<div class="hidden-xs buttons">
+  <nav class="navbar">
+
+    <!-- MAIN LOGO -->
+    <div id="logo" class="nav-logo"><%= link_to image_tag('interque-white.png', size: "500x91"), root_path, class:"hidden-xs" %></div>
+
+    <!-- MOBILE LOGO -->
+    <div class="visible-xs text-center mobile-logo"><%= link_to image_tag('interque-white.png', width:"275"), root_path  %></div>
+
+    <div class="visible-xs text-center mobile-signin">
+      <% if user_signed_in? %>
+        Logged in as <strong><%= current_user.email %></strong>.
+        <%= link_to 'Edit profile', edit_user_registration_path %> |
+        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to "Sign up", new_user_registration_path %> |
+        <%= link_to "Login", new_user_session_path %>
+      <% end %>
+    </div>
+
+    <div class="hidden-xs buttons">
       <%= link_to 'Home', "http://interque.co", class: "btn btn-success" %>
 
-    	<!-- Button trigger modal -->
-		    <button type="button" class="btn btn-primary new-listing" data-toggle="modal" data-target="#myModal">
-		      New Listing
-		      <%# link_to 'New Listing', new_listing_path %>
-		    </button>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary new-listing" data-toggle="modal" data-target="#myModal">
+        New Listing
+        <%# link_to 'New Listing', new_listing_path %>
+      </button>
 
-		    <%= link_to 'Job Board', listings_path, class: "btn btn-success" %>
+      <%= link_to 'Job Board', listings_path, class: "btn btn-success" %>
 
-		    <!-- Search -->
-		    <div class="search-container">
-		      <%= form_tag listings_path, :method => 'get' do %>
-		        <div id="search-bar">
-		          <%= text_field_tag :search, params[:search], class: "search-bar", placeholder: "filter jobs by city or state" %>
-		          <%= submit_tag "Filter", :name => nil, class: "search-button" %>
-		        </div>
-		      <% end %>
-		  </div>
-		</div>
+      <!-- Search -->
+      <div class="search-container">
+        <%= form_tag listings_path, :method => 'get' do %>
+          <div id="search-bar">
+            <%= text_field_tag :search, params[:search], class: "search-bar", placeholder: "filter jobs by city or state" %>
+            <%= submit_tag "Filter", :name => nil, class: "search-button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
 
 
 
@@ -67,19 +83,19 @@
       </div>
     </div>
 
-	</nav>
-		<!-- SIGN IN LINKS AND LOGOUT -->
-			<div class="text-left hidden-xs" id="login-links">
-				<% if user_signed_in? %>
-					Logged in as <strong><%= current_user.email %></strong>.
-					<%= link_to 'Edit profile', edit_user_registration_path %> |
-					<%= link_to "Logout", destroy_user_session_path, method: :delete %>
-				<% else %>
-					<%= link_to "Sign up", new_user_registration_path %> |
-					<%= link_to "Login", new_user_session_path %>
-				<% end %>
+  </nav>
+  <!-- SIGN IN LINKS AND LOGOUT -->
+  <div class="text-left hidden-xs" id="login-links">
+    <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> |
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
 </header>
-	
+
 <body>
 
 <%= yield %>
