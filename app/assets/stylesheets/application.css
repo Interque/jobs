@@ -12,7 +12,7 @@
  *
  *= require_tree .
  *= require_self
- *= require bootsy 
+ *= require bootsy
  */
 
 div {
@@ -105,6 +105,22 @@ a.glyphicon-edit {
 
 #login-links {
   padding-left: 76px;
+}
+
+.mobile-logo {
+  margin-top: 5%;
+}
+
+body > header > nav > div.visible-xs.text-center.mobile-signin > a:nth-child(1) {
+  color: #fff;
+}
+
+body > header > nav > div.visible-xs.text-center.mobile-signin > a:nth-child(2) {
+  color: #fff;
+}
+
+.mobile-signin {
+  color: #fff;
 }
 
 @media only screen and (max-width : 400px) {
