@@ -47,6 +47,7 @@ gem 'exception_notification'
 
 ############
 gem 'chartkick'
+gem 'json'
 
 # gem 'whenever', require: false
 
@@ -63,4 +64,3 @@ gem 'chartkick'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

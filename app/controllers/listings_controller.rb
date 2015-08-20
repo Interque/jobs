@@ -79,6 +79,16 @@ class ListingsController < ApplicationController
     end
   end
 
+  def post_to_slack
+    payload = { text: "This is a line of text from the jobs app.\nAnd this is another line of text from the app." }
+    p payload
+    p "#{'!'*20}"
+    p payload.to_json
+    response = HTTParty.post('https://hooks.slack.com/services/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', body: payload.to_json )
+
+    p response.inspect
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
