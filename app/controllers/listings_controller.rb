@@ -44,6 +44,7 @@ class ListingsController < ApplicationController
       if @listing.save
         format.html { redirect_to listing_path(@listing), notice: 'Listing was successfully created.' }
         format.json { render :show, status: :created, location: @listing }
+        post_to_slack()
       else
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -80,7 +81,7 @@ class ListingsController < ApplicationController
   end
 
   def post_to_slack
-    payload = { text: "This is a line of text from the jobs app.\nAnd this is another line of text from the app." }
+    payload = { text: "This is a line of text from the jobs app.\nAnd this is another line of text from the app.", username: "interque", icon_url: "https://drive.google.com/file/d/0BzITPMDG60vQemNXMWtQSUFLYVk/view" }
     p payload
     p "#{'!'*20}"
     p payload.to_json
