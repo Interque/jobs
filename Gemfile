@@ -48,6 +48,8 @@ gem 'exception_notification'
 ############
 gem 'chartkick'
 gem 'json'
+gem 'geocoder'
+gem 'acts-as-taggable-on', '~> 3.4'
 
 # gem 'whenever', require: false
 

@@ -1,8 +1,9 @@
 require 'httparty'
 require 'feedjira'
+require 'geocoder'
 
 task :get_jobs => :environment do
-  response = HTTParty.get('https://jobs.github.com/positions.json')  
+  response = HTTParty.get('https://jobs.github.com/positions.json')
 
   response.each do |job|
     if job.nil?
@@ -32,7 +33,7 @@ task :get_jobs => :environment do
           city = job['location'].split("/")[0]
           state = job['location'].split("/")[1]
           puts "city: #{city}, state: #{state}"
-        else 
+        else
           city = job['location']
           puts "city: #{city}"
         end
@@ -42,15 +43,15 @@ task :get_jobs => :environment do
         puts "no comma or slash"
         puts "city: #{city}"
       end
-      if job['company_url'] 
+      if job['company_url']
         p "company_url: #{job['company_url']}"
       end
       p "validated: #{Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :email => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github').valid?}"
       Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :contact => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github', :web_url => job['company_url'])
       puts "created a job"
-    else 
+    else
       puts "no new jobs"
-      if job['company_url'] 
+      if job['company_url']
         p "company_url: #{job['company_url']}"
       end
     end
@@ -93,6 +94,7 @@ task :stack_jobs => :environment do
           location = city
         end
       end
+
       puts "entry summary: #{entry.summary}"
       puts "entry published: #{entry.published}"
       puts "categories: #{entry.categories}"
@@ -106,7 +108,7 @@ end
 task :create_tech => :environment do
   url = "http://careers.stackoverflow.com/jobs/feed"
   feed = Feedjira::Feed.fetch_and_parse(url)
-  
+
   feed.entries.each do |entry|
 
     title_arr = entry.title.split('(')
@@ -136,9 +138,9 @@ task :create_tech => :environment do
         location = city
       end
     end
-    
+
     ignore_arr = ["mobile", "agile", "mongodb", "nosql", "postgresql", "sysadmin", "git"]
-    
+
     entry.categories.each do |cat|
       puts "cat: #{cat}"
       if cat.include?('ruby') # for ruby
@@ -234,9 +236,19 @@ task :clean_count => :environment do
   puts Technology.count
 end
 
+task :test_geocoder => :environment do
+  g = Geocoder.search("St. Louis, MO")
+  g.each do |location|
+    location.data["address_components"].each do |c|
+      if c["types"].include?("locality")
+        p c["long_name"]
+        p c["short_name"]
+      end
 
-
-
-
-
-
+      if c["types"].include?("administrative_area_level_1")
+        p c["long_name"]
+        p c["short_name"]
+      end
+    end
+  end
+end

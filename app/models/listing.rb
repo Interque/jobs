@@ -1,6 +1,9 @@
 class Listing < ActiveRecord::Base
 	belongs_to :user
 
+	acts_as_taggable
+	acts_as_taggable_on :category
+
   validates :title, :description, :organization, :city, :state, presence: true
   validates :description, uniqueness: true
 
