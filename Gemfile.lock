@@ -27,6 +27,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.4.2)
+      activerecord (>= 3.2, < 5)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.10)
     bootstrap-modal-rails (2.2.5)
@@ -70,6 +72,7 @@ GEM
       faraday_middleware (~> 0.9)
       loofah (~> 2.0)
       sax-machine (~> 1.0)
+    geocoder (1.2.9)
     hike (1.2.3)
     httparty (0.13.5)
       json (~> 1.8)
@@ -169,6 +172,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 3.4)
   bootstrap-modal-rails
   bootsy
   chartkick
@@ -176,6 +180,7 @@ DEPENDENCIES
   devise
   exception_notification
   feedjira
+  geocoder
   httparty
   jbuilder (~> 2.0)
   jquery-rails

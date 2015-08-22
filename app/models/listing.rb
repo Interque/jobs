@@ -1,6 +1,9 @@
 class Listing < ActiveRecord::Base
 	belongs_to :user
 
+	acts_as_taggable
+	# acts_as_taggable_on :category
+
   validates :title, :description, :organization, :city, :state, presence: true
   validates :description, uniqueness: true
 
@@ -91,6 +94,12 @@ class Listing < ActiveRecord::Base
       ['Wyoming', 'WY']
     ]
   end
+
+	# def update_categories
+	# 	if self.tag_list.length > 0
+	# 		self.category << self.tag_list.join(', ')
+	# 	end
+	# end
 
   # def conditions
   #   [conditions_clauses.join(' AND '), *conditions_options]

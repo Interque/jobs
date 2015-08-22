@@ -3,12 +3,16 @@ class ListingsController < ApplicationController
   before_filter :authenticate_user!, except: [:show, :index]
   before_filter :require_login, only: [:create, :update, :edit, :destroy]
   before_action :creator, only: [:update, :edit]
+  # after_save :update_categories
 
   # GET /listings
   # GET /listings.json
   def index
+    if params[:tag]
+      @listings = Listing.tagged_with(params[:tag].downcase) #.per_page(12).order(:created_at => :desc)
+
     # @listings = Listing.all
-    if params[:search].blank?
+    elsif params[:search].blank?
       @listings = Listing.page(params[:page]).per_page(12).order(:created_at => :desc)
     else
       @listings = Listing.search(params[:search])
@@ -44,9 +48,8 @@ class ListingsController < ApplicationController
       if @listing.save
         format.html { redirect_to listing_path(@listing), notice: 'Listing was successfully created.' }
         format.json { render :show, status: :created, location: @listing }
-        p "listing state: #{@listing.state}"
         post_to_slack(@listing.id)
-
+        update_categories
       else
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -98,6 +101,13 @@ class ListingsController < ApplicationController
     end
   end
 
+  def update_categories
+    if @listing.tag_list.length > 0
+      @listing.category = @listing.tag_list.join(', ')
+      @listing.save
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
@@ -106,7 +116,7 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:title, :description, :organization, :email, :salary, :city, :state, :user_id, :location, :source, :posted, :contact)
+      params.require(:listing).permit(:title, :description, :organization, :email, :salary, :city, :state, :user_id, :location, :source, :posted, :contact, :category, :tag_list)
     end
 
     def require_login

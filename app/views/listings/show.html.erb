@@ -35,7 +35,7 @@
       <div>
 
         <strong>Description:</strong> <span class=<%= current_user == @listing.user ? "listing-description" : "non-editable" %>><%= @listing.description.html_safe %></span>
-      </div>
+      </div><br>
 
       <div>
         <% if current_user %>
@@ -63,12 +63,18 @@
       <% end %>
       <br>
       </div>
+      <div class="">
+        <% if @listing.tag_list.length > 0 %>
+          <strong>Desired skills/technologies:</strong> <%= raw @listing.tag_list.map { |t| link_to t, tag_path(t)}.join(', ') %><br>
+        <% end %>
+      </div><br>
       <% if @listing.posted %>
         <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(@listing.updated_at) %> ago.</div>
       <% elsif @listing.updated_at %>
         <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(@listing.updated_at) %> ago.</div>
       <% end %>
       <br>
+
       <div>
         <span class="share">
           <%= render_shareable :buttons => ['facebook', 'linkedin', 'twitter'] %>
