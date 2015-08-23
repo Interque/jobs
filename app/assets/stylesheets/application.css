@@ -13,6 +13,9 @@
  *= require_tree .
  *= require_self
  *= require bootsy
+ *= require token-input
+ *= require token-input-facebook
+ *= require token-input-mac
  */
 
 div {

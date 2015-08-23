@@ -5,3 +5,5 @@ Toggle the: config.action_mailer.default_url_options = { host: 'localhost', port
 
 .
 
+Note: Be careful updating the vendor files for jquery tokenInput.
+To get the autocomplete to work w/ bootstrap modals, manually overwrote the zindex in the css files.

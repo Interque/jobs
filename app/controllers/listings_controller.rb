@@ -108,6 +108,15 @@ class ListingsController < ApplicationController
     end
   end
 
+  def tags
+    # tags = ActsAsTaggableOn::Tag.all
+    tags = Listing.all_tag_counts.by_tag_name(params[:q]).token_input_tags
+
+    respond_to do |format|
+      format.json { render json: tags }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing

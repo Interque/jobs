@@ -5,7 +5,11 @@ Rails.application.routes.draw do
 
   mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   devise_for :users
-  resources :listings
+  resources :listings do
+    collection do
+      get :tags, as: :tags
+    end
+  end
 
   get "listings/new" => 'listings#new', :as => :new
 
