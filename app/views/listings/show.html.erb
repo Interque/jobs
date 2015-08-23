@@ -62,11 +62,14 @@
       <% end %>
       <br>
       </div>
-      <div class="">
+
         <% if @listing.tag_list.length > 0 %>
-          <strong>Desired skills/technologies:</strong> <%= raw @listing.tag_list.map { |t| link_to t, tag_path(t)}.join(', ') %><br>
+          <div>
+            <strong>Desired competencies:</strong><br>
+            <span class="tag-list-map"><%= raw @listing.tag_list.map { |t| link_to t, tag_path(t)}.join(' ') %></span><br>
+          </div>
         <% end %>
-      </div><br>
+      <br>
       <% if @listing.posted %>
         <div style="padding-bottom: 5px;"><strong>Last update:</strong> <%= time_ago_in_words(@listing.updated_at) %> ago.</div>
       <% elsif @listing.updated_at %>
