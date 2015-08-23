@@ -43,8 +43,8 @@
     <%# f.number_field :salary %>
   </div>
   <div class="field ">
-    <%# f.label :tag_list, "Tags (separated by commas)" %><br>
-    <%= f.text_field :tag_list, placeholder: 'Technologies Desired Tags (separated by commas)', class: "form-control" %>
+    <%= f.label :tag_list, "Technologies Desired" %><br>
+    <%= f.text_field :tag_list, placeholder: 'Technologies Desired Tags (separated by commas)', class: "form-control", id: "tag_form_input" %>
   </div><br>
   <div class="actions">
     <%= f.submit "Create", class: "btn btn-success" %>

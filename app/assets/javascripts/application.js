@@ -14,10 +14,11 @@
 //= require jquery_ujs
 //= require bootsy
 //= require turbolinks
-//= require_tree .
 //= require bootstrap-modal
 //= require bootstrap-modalmanager
 //= require chartkick
+//= require jquery.tokeninput
+//= require_tree .
 
 $(document).on('ready page:load', function(){
 	$('.editable').editable();
