@@ -254,3 +254,11 @@ task :test_geocoder => :environment do
     end
   end
 end
+
+task :test_description => :environment do
+  response = HTTParty.get('https://jobs.github.com/positions.json')
+
+  response.each do |job|
+    puts job['search']
+  end
+end
