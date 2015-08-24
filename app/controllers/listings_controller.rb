@@ -89,8 +89,8 @@ class ListingsController < ApplicationController
     job = Listing.find(app_id)
 
     if job.state == 'FL'
-      base_url = "<http://localhost:3000/listings/#{app_id}>"
-      # base_url = "<http://jobs.interque.co/listings/#{app_id}>"
+      # base_url = "<http://localhost:3000/listings/#{app_id}>"
+      base_url = "<http://jobs.interque.co/listings/#{app_id}>"
       payload = { text: "New job opportunity with #{job.organization} in #{job.city}, #{job.state}\n #{base_url}", username: "interque", channel: "#wynwork", channel: "@channel" }
       p payload
       p "#{'!'*20}"
