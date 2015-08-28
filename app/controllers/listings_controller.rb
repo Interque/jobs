@@ -48,8 +48,8 @@ class ListingsController < ApplicationController
       if @listing.save
         format.html { redirect_to listing_path(@listing), notice: 'Listing was successfully created.' }
         format.json { render :show, status: :created, location: @listing }
-        post_to_slack(@listing.id)
-        update_categories
+        # post_to_slack(@listing.id)
+        # update_categories
       else
         format.html { render :new }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -98,13 +98,6 @@ class ListingsController < ApplicationController
       response = HTTParty.post('https://hooks.slack.com/services/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', body: payload.to_json )
 
       p response.inspect
-    end
-  end
-
-  def update_categories
-    if @listing.tag_list.length > 0
-      @listing.category = @listing.tag_list.join(', ')
-      @listing.save
     end
   end
 

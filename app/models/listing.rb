@@ -6,10 +6,36 @@ class Listing < ActiveRecord::Base
 
   validates :title, :description, :organization, :city, :state, presence: true
   validates :description, uniqueness: true
-
-
 	validates :salary, inclusion: (1..8)
+
 	RANGE_OPTIONS=[['not specified', 1], ['less than 50k', 2], ['50k-75k', 3], ['76k-100k', 4], ['101k-125k', 5], ['126k-150k', 6], ['151k-200k', 7], ['more than 200k', 8]]
+
+	after_save :post_to_slack
+	after_save :update_categories
+
+	def post_to_slack
+		job = Listing.find(self.id)
+
+    if job.state == 'FL'
+      # base_url = "<http://localhost:3000/listings/#{app_id}>"
+      base_url = "<http://jobs.interque.co/listings/#{self.id}>"
+      payload = { text: "New job opportunity with #{job.organization} in #{job.city}, #{job.state}\n #{base_url}", username: "interque" }
+      p payload
+      p "#{'!'*20}"
+      p payload.to_json
+      response = HTTParty.post('https://hooks.slack.com/services/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', body: payload.to_json )
+
+      p response.inspect
+    end
+	end
+
+	def update_categories
+    if self.tag_list.length > 0
+      self.category = self.tag_list.join(', ')
+      self.save
+    end
+  end
+
 	def convert_range(num)
 		if num == 1
 			'not specified'
