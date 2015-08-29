@@ -27,7 +27,6 @@ class Listing < ActiveRecord::Base
 	def update_categories
     if self.tag_list.length > 0
       self.category = self.tag_list.join(', ')
-      self.save
     end
   end
 
