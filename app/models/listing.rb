@@ -9,8 +9,8 @@ class Listing < ActiveRecord::Base
 
 	RANGE_OPTIONS=[['not specified', 1], ['less than 50k', 2], ['50k-75k', 3], ['76k-100k', 4], ['101k-125k', 5], ['126k-150k', 6], ['151k-200k', 7], ['more than 200k', 8]]
 
-	# after_save :post_to_slack
-	# after_save :update_categories
+	after_save :post_to_slack
+	after_save :update_categories
 
 	def post_to_slack
 		job = Listing.find(self.id)
