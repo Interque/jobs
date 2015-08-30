@@ -44,8 +44,16 @@
         New Listing
         <%# link_to 'New Listing', new_listing_path %>
       </button>
+      <!-- <span class="caret"> -->
+      <span class="dropdown">
 
-      <%= link_to 'Job Board', listings_path, class: "btn btn-success" %>
+        <%= link_to 'Job Board', listings_path, class: "btn btn-success dropdown-toggle", id: "dropdownMenu1", data: { toggle: "dropdown" }, aria: {haspopup: true, expanded: true} %>
+      <!-- </span> -->
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><%= link_to 'Listings', listings_path %></li>
+          <li><%= link_to 'Data', data_path %></li>
+        </ul>
+      </span>
 
       <!-- Search -->
       <div class="search-container">
@@ -57,8 +65,6 @@
         <% end %>
       </div>
     </div>
-
-
 
 <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
