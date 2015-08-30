@@ -2,7 +2,7 @@
 <%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
 
 <ul class="nav nav-tabs">
-  <% if !params[:pie] && !params[:table] %>
+  <% if !params[:pie] && !params[:geo] %>
     <li role="presentation" class="active">
   <% else %>
     <li role="presentation">
@@ -17,6 +17,14 @@
   <% end %>
       <%= link_to "pie", data_path(pie: true) %>
   </li>
+
+  <% if params[:geo] %>
+    <li role="presentation" class="active">
+  <% else %>
+    <li role="presentation">
+  <% end %>
+      <%= link_to "geo", data_path(geo: true) %>
+    </li>
 
   <%# if params[:table] %>
     <!-- <li role="presentation" class="active"> -->
@@ -53,7 +61,9 @@
       <%# end %>
     <%# end %>
   <!-- </table> -->
-
+<% elsif params[:geo] %>
+  <%= geo_chart Technology.group(:state).count, library: {region: 'US', resolution: 'provinces'} %>
+  <h5 class="text-center">Number of Jobs by US State</h5>
 <% else %>
   <%= column_chart charts_tech_name_path %>
 <% end %>
