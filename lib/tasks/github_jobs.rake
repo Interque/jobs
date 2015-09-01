@@ -112,59 +112,61 @@ task :create_tech => :environment do
   feed = Feedjira::Feed.fetch_and_parse(url)
 
   feed.entries.each do |entry|
+    if entry.published > (Time.now - 1.days)
 
-    title_arr = entry.title.split('(')
-    p title_arr
+      title_arr = entry.title.split('(')
+      p title_arr
 
-    if title_arr.length > 0
-      job_title = title_arr[0]
-      if job_title.split(' ').include?("at")
-        job_title_arr = job_title.split(/\s(at)/)
-        p job_title_arr
-        position = job_title_arr[0].rstrip.lstrip
-        organization = job_title_arr[2].rstrip.lstrip
+      if title_arr.length > 0
+        job_title = title_arr[0]
+        if job_title.split(' ').include?("at")
+          job_title_arr = job_title.split(/\s(at)/)
+          p job_title_arr
+          position = job_title_arr[0].rstrip.lstrip
+          organization = job_title_arr[2].rstrip.lstrip
+        end
+
+        city = title_arr[1].gsub(")", "").split(",")[0]
+
+        puts "job_title: #{job_title}"
+        puts "city: #{city}"
+
+        if title_arr[1].gsub(")", "").split(",")[1]
+          state = title_arr[1].gsub(")", "").split(",")[1].rstrip.lstrip
+          puts "state: #{state}"
+          puts ""
+          location = city + ", " + state
+        else
+          state = ""
+          location = city
+        end
       end
 
-      city = title_arr[1].gsub(")", "").split(",")[0]
+      ignore_arr = ["mobile", "agile", "mongodb", "nosql", "postgresql", "sysadmin", "git", "mysql"]
 
-      puts "job_title: #{job_title}"
-      puts "city: #{city}"
+      entry.categories.each do |cat|
+        puts "cat: #{cat}"
+        if cat.include?('ruby') # for ruby
+          name = 'ruby-on-rails'
+        elsif cat.include?('html') # for html5
+          name = 'html'
+        elsif cat.include?('css') # for css3
+          name = 'css'
+        elsif cat.include?('angular')
+          name = 'angularjs'
+        elsif cat.include?('backbone')
+          name = 'backbone.js'
+        else
+          name = cat
+        end
 
-      if title_arr[1].gsub(")", "").split(",")[1]
-        state = title_arr[1].gsub(")", "").split(",")[1].rstrip.lstrip
-        puts "state: #{state}"
-        puts ""
-        location = city + ", " + state
-      else
-        state = ""
-        location = city
-      end
-    end
-
-    ignore_arr = ["mobile", "agile", "mongodb", "nosql", "postgresql", "sysadmin", "git"]
-
-    entry.categories.each do |cat|
-      puts "cat: #{cat}"
-      if cat.include?('ruby') # for ruby
-        name = 'ruby-on-rails'
-      elsif cat.include?('html') # for html5
-        name = 'html'
-      elsif cat.include?('css') # for css3
-        name = 'css'
-      elsif cat.include?('angular')
-        name = 'angularjs'
-      elsif cat.include?('backbone')
-        name = 'backbone.js'
-      else
-        name = cat
-      end
-
-      unless ignore_arr.include?(name)
-        Technology.create(:name => name, :city => city, :state => state, :posted => entry.published)
+        unless ignore_arr.include?(name)
+          Technology.create(:name => name, :city => city, :state => state, :posted => entry.published)
+        end
       end
     end
   end
-  puts "num entries: #{feed.entries.count}"
+  # puts "num entries: #{feed.entries.count}"
 end
 
 task :inspect_stack do
