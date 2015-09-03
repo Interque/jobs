@@ -39,7 +39,7 @@
   </div>
   <div class="field salary-field ">
     <%= f.label :state, "Location: State" %>
-    <%= f.select :state, options_for_select(@listing.us_states, "FL"), {}, {class: "form-control"} %>
+    <%= f.select :state, options_for_select(@listing.us_states), {}, {class: "form-control", id: "us_states"} %>
     <%# f.number_field :salary %>
   </div>
   <div class="field">
