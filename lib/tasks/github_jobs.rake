@@ -264,3 +264,11 @@ task :test_description => :environment do
     puts job['search']
   end
 end
+
+task :delete_old_jobs => :environment do
+  Listing.find_each do |l|
+    # might not need this now...
+    # but if job is older than x
+    # delete it or hide it
+  end
+end
