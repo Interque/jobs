@@ -2,11 +2,10 @@
 
 <%# debug listing[:params] %>
 
-<div>
+<div class="listings-container">
   <% @listings.each do |listing| %>
-    <div class="job-posting col-md-6 col-md-offset-3" data-pk="<%= listing.id %>">
-      <div>
-       <p>Work at <strong><%= listing.organization %></strong> as a <%= link_to listing.title, listing_path(listing) %> in  
+    <div class="job-posting text-center" data-pk="<%= listing.id %>">
+        <p>Work at <strong><%= listing.organization %></strong> as a <%= link_to listing.title, listing_path(listing) %> in
         <% if listing.state && listing.city %>
           <%= listing.city %>, <%= listing.state %>
         <% elsif listing.city && !listing.state %>
@@ -14,28 +13,17 @@
         <% elsif listing.location %>
           <%= listing.location %>
         <% end %>
-      <span class="listing-updated">(<%= time_ago_in_words(listing.updated_at) %> ago)</span>
-      
-      <% if (current_user && listing.user_id == current_user.id) || (current_user && current_user.admin) %>
+        <span class="listing-updated">(<%= time_ago_in_words(listing.updated_at) %> ago)</span>
+
+        <% if (current_user && listing.user_id == current_user.id) || (current_user && current_user.admin) %>
           <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
           <%= link_to '', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-ban-circle" %><br>
-      <% end %>
-      </p> 
+        <% end %>
+        </p>
       </div>
-      
-  
-    </div>
-    
   <% end %>
 </div>
 
-  
-    <% unless params[:search] %>
-      <div class="digg_pagination col-md-12 col-md-offset-4"><%= will_paginate %></div>
-    <% end %>
-  
-
-
-<!--   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
-    <%# link_to 'New Listing', sign %>
-  </button> -->
+<% unless params[:search] %>
+  <div class="digg_pagination text-center"><%= will_paginate %></div>
+<% end %>

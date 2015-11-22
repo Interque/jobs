@@ -1,94 +1,99 @@
 /*
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-*/
+Place all the styles related to the matching controller here.
+They will automatically be included in application.css.
+ */
 
 .login-box{
-	margin-top: 30px;
-	border: 1px solid #d3d3d3;
-	max-height: 250px;
-	border-radius: 5px;
+  margin-top: 30px;
+  border: 1px solid #d3d3d3;
+  max-height: 250px;
+  border-radius: 5px;
 }
 
-#user_email, 
+#user_email,
 #user_password,
 #user_password_confirmation,
 #user_current_password {
-	border-radius: 5px;
+  border-radius: 5px;
 }
 
 #logo{
-	float: left;
-	/*margin-top: 10px;*/
+  float: left;
+  /*margin-top: 10px;*/
 }
 
 .page-title{
-	margin-top: 37px;
+  margin-top: 37px;
 }
 
 .login-stuff{
-	float: left;
-	text-align: left;
-	margin-top: 50px;
+  float: left;
+  text-align: left;
+  margin-top: 50px;
 }
 
 .actions{
-	margin-top: 10px;
+  margin-top: 10px;
 }
 
 .field{
-	margin-top: 5px;
-	border-radius: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
 }
 
 /*.location-field{
-	margin-top: 5px;
+margin-top: 5px;
 }
 
 .salary-field{
-	margin-top: 5px;
+margin-top: 5px;
 }*/
 
 .job-posting{
-	border-bottom: solid 1px #d3d3d3;
-	margin-top: 15px;
+  border-bottom: solid 1px #d3d3d3;
+  margin-top: 15px;
 }
 
 .edit-box {
-	border: 1px solid #d3d3d3;
-	border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
 }
 
 .editable-click {
-	border-bottom: none;
+  border-bottom: none;
 }
 
 .editable-underline {
-	border: dashed 1px #0088cc;
+  border: dashed 1px #0088cc;
 }
 
 .buttons {
-	float: right;
-	margin-top: 22px;
+  float: right;
+  margin-top: 22px;
 }
 
 nav.share{
-	padding: 15px;
-	display: inline;
+  padding: 15px;
+  display: inline;
 }
 
 nav.share div {
-	float: left;
+  float: left;
 }
 
 .listing-updated{
-	font-size: 10px;
+  font-size: 10px;
 }
 
 modal-warning{
-	margin: 10px;
+  margin: 10px;
 }
 
 h4 {
-	font-size: 20px;
+  font-size: 20px;
+}
+
+.listings-container {
+  margin-right: 20%;
+  margin-left: 20%;
 }
