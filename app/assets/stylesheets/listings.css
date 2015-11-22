@@ -110,3 +110,8 @@ h4 {
 	float: left;
 	white-space: nowrap;
 }
+
+.listings-container {
+  margin-right: 20%;
+  margin-left: 20%;
+}
