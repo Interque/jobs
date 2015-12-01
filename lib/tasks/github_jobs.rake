@@ -267,6 +267,11 @@ end
 
 task :delete_old_jobs => :environment do
   Listing.find_each do |l|
+    # if l.created_at is more than 12 months old
+    if l.created_at <= Time.now - 12.months
+      p "l: #{l}"
+      p "l.created_at: #{l.created_at}"
+    end
     # might not need this now...
     # but if job is older than x
     # delete it or hide it
