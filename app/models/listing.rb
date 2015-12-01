@@ -18,7 +18,6 @@ class Listing < ActiveRecord::Base
       # base_url = "<http://localhost:3000/listings/#{app_id}>"
       base_url = "<http://jobs.interque.co/listings/#{self.id}>"
       payload = { text: "New job opportunity with #{job.organization} in #{job.city}, #{job.state}\n #{base_url}", username: "interque" }
-      p payload.to_json
       response = HTTParty.post('https://hooks.slack.com/services/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', body: payload.to_json )
     end
 	end
