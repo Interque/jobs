@@ -270,6 +270,8 @@ task :delete_old_jobs => :environment do
     # if l.created_at is more than 12 months old
     if l.created_at <= Time.now - 11.months
       p "l: #{l}"
+      p "l.email: #{l.email}"
+      p "l.organization: #{l.organization}"
       p "l.created_at: #{l.created_at}"
     end
     # might not need this now...
