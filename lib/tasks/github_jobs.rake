@@ -269,6 +269,7 @@ task :delete_old_jobs => :environment do
   Listing.find_each do |l|
     # if l.created_at is more than 12 months old
     if l.created_at <= Time.now - 11.months
+      # don't really want to delete data...better to deactivate it, right?
       p "l: #{l}"
       p "l.email: #{l.email}"
       p "l.organization: #{l.organization}"
