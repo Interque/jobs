@@ -19,6 +19,17 @@ class ListingsController < ApplicationController
       @listings = Listing.where(:active => true).per_page(20).order(:created_at => :desc)
     end
     @listing = Listing.new
+
+    unless request.remote_ip.blank?
+      g = Geocoder.search(remote_ip)
+      puts "g: #{g.inspect}"
+      puts "g.data['region_code']: #{g[0].data['region_code']}"
+      if current_user
+        puts "last_sign_in_ip: #{current_user.last_sign_in_ip}"
+        location = Location.create(ip: g[0].data['ip'], state: g[0].data['region_code'], city: g[0].data['city'], zip: g[0].data['zip_code'], country: g[0].data['country_name'], user_id: current_user.id)
+        puts "location created"
+      end
+    end
   end
 
   # GET /listings/1
