@@ -14,8 +14,10 @@ class ListingsController < ApplicationController
     # @listings = Listing.all
     elsif params[:search].blank?
       @listings = Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
-    else
+    elsif params[:search]
       @listings = Listing.search(params[:search])
+    else
+      @listings = Listing.where(:active => true).per_page(15).order(:created_at => :desc)
     end
     @listing = Listing.new
   end

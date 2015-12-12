@@ -5,20 +5,23 @@ class Listing < ActiveRecord::Base
 
   validates :title, :description, :organization, :city, :state, presence: true
   validates :description, uniqueness: true
+  validates_uniqueness_of :title, scope: [:organization, :city]
 	validates :salary, inclusion: (1..8)
 
 	RANGE_OPTIONS=[['not specified', 1], ['less than 50k', 2], ['50k-75k', 3], ['76k-100k', 4], ['101k-125k', 5], ['126k-150k', 6], ['151k-200k', 7], ['more than 200k', 8]]
 
 	after_save :post_to_slack
-	after_save :update_categories
+	before_save :update_categories
 
-	def post_to_slack
-		job = Listing.find(self.id)
-    if job.state == 'FL'
-      # base_url = "<http://localhost:3000/listings/#{app_id}>"
-      base_url = "<http://jobs.interque.co/listings/#{self.id}>"
-      payload = { text: "New job opportunity with #{job.organization} in #{job.city}, #{job.state}\n #{base_url}", username: "interque" }
-      response = HTTParty.post('https://hooks.slack.com/services/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', body: payload.to_json )
+	def post_to_slack # why is it posting to slack twice?
+    unless Rails.env == "development"
+  		job = Listing.find(self.id)
+      if job.state == 'FL'
+        # base_url = "<http://localhost:3000/listings/#{app_id}>"
+        base_url = "<http://jobs.interque.co/listings/#{self.id}>"
+        payload = { text: "New job opportunity with #{job.organization} in #{job.city}, #{job.state}\n #{base_url}", username: "interque" }
+        response = HTTParty.post('https://hooks.slack.com/services/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', body: payload.to_json )
+      end
     end
 	end
 
@@ -49,8 +52,12 @@ class Listing < ActiveRecord::Base
   end
 
   def self.search(search)
-    if search
-      Listing.where(["city LIKE ? OR state LIKE ?", "#{search}", "#{search}"]).order("updated_at DESC")
+    if search #&& Listing.where(["city LIKE ? OR state LIKE ?", "#{search}", "#{search}"]).count == 0
+      if Listing.tagged_with(search.downcase).count > 0
+        Listing.tagged_with(search.downcase)
+      else
+        Listing.where(["city LIKE ? OR state LIKE ?", "#{search}", "#{search}"]).order("updated_at DESC")
+      end
     else
       Listing.all
     end
