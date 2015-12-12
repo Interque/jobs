@@ -10,14 +10,13 @@ class ListingsController < ApplicationController
   def index
     if params[:tag]
       @listings = Listing.tagged_with(params[:tag].downcase) #.per_page(12).order(:created_at => :desc)
-
     # @listings = Listing.all
     elsif params[:search].blank?
-      @listings = Listing.page(params[:page]).per_page(15).order(:created_at => :desc)
+      @listings = Listing.where(:active => true).page(params[:page]).per_page(20).order(:created_at => :desc)
     elsif params[:search]
       @listings = Listing.search(params[:search])
     else
-      @listings = Listing.where(:active => true).per_page(15).order(:created_at => :desc)
+      @listings = Listing.where(:active => true).per_page(20).order(:created_at => :desc)
     end
     @listing = Listing.new
   end

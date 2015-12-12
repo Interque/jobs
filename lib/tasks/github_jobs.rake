@@ -265,18 +265,24 @@ task :test_description => :environment do
   end
 end
 
-task :delete_old_jobs => :environment do
+task :deactivate_old_jobs => :environment do
   Listing.find_each do |l|
-    # if l.created_at is more than 12 months old
-    if l.created_at <= Time.now - 11.months
-      # don't really want to delete data...better to deactivate it, right?
-      p "l: #{l}"
-      p "l.email: #{l.email}"
-      p "l.organization: #{l.organization}"
-      p "l.created_at: #{l.created_at}"
+    begin
+      # if l.created_at is more than 12 months old
+      if l.created_at <= Time.now - 11.months
+        # don't really want to delete data...better to deactivate it, right?
+        p "l: #{l}"
+        p "l.email: #{l.email}"
+        p "l.organization: #{l.organization}"
+        p "l.created_at: #{l.created_at}"
+        l.active = false
+        l.save
+      end
+      # might not need this now...
+      # but if job is older than x
+      # delete it or hide it
+    rescue => e
+      puts "there was an error: #{e}"
     end
-    # might not need this now...
-    # but if job is older than x
-    # delete it or hide it
   end
 end
