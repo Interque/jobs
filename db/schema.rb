@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151212210112) do
+ActiveRecord::Schema.define(version: 20151213234112) do
 
   create_table "bootsy_image_galleries", force: true do |t|
     t.integer  "bootsy_resource_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20151212210112) do
     t.string   "category"
     t.string   "web_url"
     t.boolean  "active",       default: true
+    t.string   "country"
   end
 
   add_index "listings", ["user_id"], name: "index_listings_on_user_id"
@@ -99,6 +100,7 @@ ActiveRecord::Schema.define(version: 20151212210112) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                  default: false
+    t.string   "state"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

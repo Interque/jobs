@@ -9,11 +9,19 @@ class ListingsController < ApplicationController
   # GET /listings.json
   def index
     @listing = Listing.new
+
+    if current_user && current_user.state.nil?
+      current_user.state = geocoder_current_state
+      current_user.save
+    end
+
     if params[:tag] # if searching by tag
       @listings = Listing.tagged_with(params[:tag].downcase).page(params[:page]).per_page(20).order(:created_at => :desc) #.per_page(12).order(:created_at => :desc)      
     elsif params[:all] 
       @listings = active_listings
-    elsif params[:search].blank? && remote_ip
+    elsif params[:search].blank? && current_user && current_user.state.present?
+      @listings = Listing.where(active: true, state: current_user.state).paginate(:page => params[:page], :per_page => 20)
+    elsif (params[:search].blank? && remote_ip) || (params[:my_state] && remote_ip)
       unless Listing.where(:active => true, :state => geocoder_current_state).count == 0
         @listings = Listing.where(:active => true, :state => geocoder_current_state).paginate(:page => params[:page], :per_page => 20)
       else
@@ -31,10 +39,6 @@ class ListingsController < ApplicationController
   end
 
   def geocoder_current_state
-    puts "#{'!'*20}"
-    p "inside geocoder current state"
-    puts "#{'!'*20}"
-
     geocoder = Geocoder.search(remote_ip)
     state = geocoder[0].data['region_code']
     state

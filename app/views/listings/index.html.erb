@@ -1,4 +1,22 @@
 <%# debug listing[:params] %>
+<!-- <ul class="nav nav-tabs"> -->
+  <%# if params[:all].blank? %>
+    <!-- <li role="presentation" class="active"> -->
+  <%# else %>
+    <!-- <li role="presentation"> -->
+  <%# end %>
+      <%# link_to "All", listings_path(all: true) %>
+    <!-- </li> -->
+
+  <%# if params[:my_state].blank? %>
+    <!-- <li role="presentation" class="active"> -->
+  <%# else %>
+    <!-- <li role="presentation"> -->
+  <%# end %>
+      <%# link_to "My State", listings_path(my_state: true) %>
+    <!-- </li> -->
+<!-- </ul> -->
+
 <% if params[:search].blank? && remote_ip && !params[:all] && !params[:tag] %>
   <div style="padding-top:1%;">
     <div class="alert alert-info alert-dismissable text-center" style="width:70%; margin: 0 auto;">
