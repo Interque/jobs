@@ -1,9 +1,9 @@
 <%# debug listing[:params] %>
-<% if params[:search].blank? && remote_ip && !params[:all] %>
+<% if params[:search].blank? && remote_ip && !params[:all] && !params[:tag] %>
   <div style="padding-top:1%;">
     <div class="alert alert-info alert-dismissable text-center" style="width:70%; margin: 0 auto;">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      You're currently seeing jobs for the state we think you're in. If you'd prefer to see all jobs, click <strong><%= link_to 'here', listings_path(all: true) %></strong>.
+      You're currently seeing jobs for the state we think you're in (<%= current_state %>). If you'd prefer to see all jobs, click <strong><%= link_to 'here', listings_path(all: true) %></strong>.
     </div>
   </div>
 <% end %>
