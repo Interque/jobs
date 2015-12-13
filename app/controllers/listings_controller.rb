@@ -10,6 +10,7 @@ class ListingsController < ApplicationController
   def index
     @listing = Listing.new
 
+    # trying to make fewer geocoder api calls
     if current_user && current_user.state.nil?
       current_user.state = geocoder_current_state
       current_user.save
@@ -19,7 +20,7 @@ class ListingsController < ApplicationController
       @listings = Listing.tagged_with(params[:tag].downcase).page(params[:page]).per_page(20).order(:created_at => :desc) #.per_page(12).order(:created_at => :desc)      
     elsif params[:all] 
       @listings = active_listings
-    elsif params[:search].blank? && current_user && current_user.state.present?
+    elsif current_user && params[:search].blank? && current_user.state.present?
       @listings = Listing.where(active: true, state: current_user.state).paginate(:page => params[:page], :per_page => 20)
     elsif (params[:search].blank? && remote_ip) || (params[:my_state] && remote_ip)
       unless Listing.where(:active => true, :state => geocoder_current_state).count == 0
