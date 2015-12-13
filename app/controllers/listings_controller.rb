@@ -8,13 +8,28 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
+    
     if params[:tag]
       @listings = Listing.tagged_with(params[:tag].downcase) #.per_page(12).order(:created_at => :desc)
-    # @listings = Listing.all
+      # @listings = Listing.all
     elsif params[:search].blank?
-      @listings = Listing.where(:active => true).page(params[:page]).per_page(20).order(:created_at => :desc)
+      if remote_ip
+        g = Geocoder.search(remote_ip)
+        current_state = g[0].data['region_code']
+        unless Listing.where(:active => true, :state => current_state).count == 0
+          @listings = Listing.where(:active => true, :state => current_state).paginate(:page => params[:page], :per_page => 20)
+        else
+          @listings = Listing.where(:active => true).page(params[:page]).per_page(20).order(:created_at => :desc)
+        end  
+      else
+        @listings = Listing.where(:active => true).page(params[:page]).per_page(20).order(:created_at => :desc)
+      end
     elsif params[:search]
       @listings = Listing.search(params[:search])
+    elsif remote_ip
+      g = Geocoder.search(remote_ip)
+      current_state = g[0].data['region_code']
+      @listings = Listing.where(:active => true, :state => current_state).paginate(:page => params[:page], :per_page => 20)
     else
       @listings = Listing.where(:active => true).per_page(20).order(:created_at => :desc)
     end
