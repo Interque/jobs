@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151212224812) do
+ActiveRecord::Schema.define(version: 20151212210112) do
 
   create_table "bootsy_image_galleries", force: true do |t|
     t.integer  "bootsy_resource_id"
@@ -48,19 +48,6 @@ ActiveRecord::Schema.define(version: 20151212224812) do
   end
 
   add_index "listings", ["user_id"], name: "index_listings_on_user_id"
-
-  create_table "locations", force: true do |t|
-    t.string   "ip"
-    t.string   "state"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "country"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "locations", ["user_id"], name: "index_locations_on_user_id"
 
   create_table "snapshots", force: true do |t|
     t.string   "name"
