@@ -265,6 +265,10 @@ task :test_description => :environment do
   end
 end
 
+task :location_by_ip => :environment do
+  g = Geocoder.search(request.remote_ip)
+end
+
 task :deactivate_old_jobs => :environment do
   Listing.find_each do |l|
     begin
