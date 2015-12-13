@@ -2,6 +2,28 @@ require 'httparty'
 require 'feedjira'
 require 'geocoder'
 
+task :find_countries => :environment do
+  Listing.find_each do |listing|
+    begin
+      city_state = ""
+      city = listing.city
+      state = listing.state
+      city_state << city + ", "
+      city_state << state
+      p "city: #{city}"
+      p "state: #{state}"
+      p "city_state: #{city_state}"
+      geo = Geocoder.search(city_state)
+      country_long = geo[0].data["address_components"][3]["long_name"]
+      country_short = geo[0].data["address_components"][3]["short_name"]
+      listing.country = country_short
+      listing.save
+    rescue => e
+      puts "an error occurred: #{e}"
+    end
+  end
+end
+
 task :get_jobs => :environment do
   response = HTTParty.get('https://jobs.github.com/positions.json')
 
@@ -19,8 +41,11 @@ task :get_jobs => :environment do
           country = job['location'].split(",")[2]
           puts "city: #{city}, state: #{state}, country: #{country}"
         elsif job['location'].split(",").count > 1
+          city_state = ""
           city = job['location'].split(",")[0]
           state = job['location'].split(",")[1]
+          city_state << city + ","
+          city_state << state
           puts "city: #{city}, state: #{state}"
         else
           city = job['location'].split(",")[0]
@@ -43,11 +68,12 @@ task :get_jobs => :environment do
         puts "no comma or slash"
         puts "city: #{city}"
       end
-      if job['company_url']
-        p "company_url: #{job['company_url']}"
+      
+      if country.nil?
+        geo = Geocoder.search(city_state)
+        country = geo[0].data["address_components"][3]["short_name"]
       end
-      p "validated: #{Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :email => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github').valid?}"
-      Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :contact => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github', :web_url => job['company_url'])
+      Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :contact => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github', :web_url => job['company_url'], :country => country)
       puts "created a job"
     else
       puts "no new jobs"
@@ -63,7 +89,7 @@ task :stack_jobs => :environment do
   feed = Feedjira::Feed.fetch_and_parse(url)
 
   feed.entries.each do |entry|
-    if entry.published > (Time.now - 1.days) || entry.title.include?("Miami")
+    if entry.published > (Time.now - 1.days)
       puts "num entries: #{feed.entries.count}"
       puts "entry title: #{entry.title}"
       title_arr = entry.title.split('(')
@@ -74,9 +100,7 @@ task :stack_jobs => :environment do
           job_title_arr = job_title.split(/\s(at)/)
           p job_title_arr
           position = job_title_arr[0].rstrip.lstrip
-          p "position: #{position}"
           organization = job_title_arr[2].rstrip.lstrip
-          p "organization: #{organization}"
         end
 
         city = title_arr[1].gsub(")", "").split(",")[0]
@@ -93,12 +117,16 @@ task :stack_jobs => :environment do
           state = ""
           location = city
         end
+        geo = Geocoder.search(location)
+        country = geo[0].data["address_components"][3]["short_name"]
       end
-
-      puts "entry summary: #{entry.summary}"
-      puts "entry published: #{entry.published}"
-      puts "categories: #{entry.categories.join(', ')}"
-      l = Listing.create(:title => position, :description => entry.summary, :organization => organization, :location => location, :city => city, :state => state, :contact => entry.url, :salary => 1, :user_id => 1, :posted => entry.published, :source => 'stackoverflow', :category => entry.categories.join(', '))
+      l = Listing.create(:title => position, :description => entry.summary, 
+                         :organization => organization, :location => location, 
+                         :city => city, :state => state, 
+                         :contact => entry.url, :salary => 1, 
+                         :user_id => 1, :posted => entry.published, 
+                         :source => 'stackoverflow', 
+                         :category => entry.categories.join(', '), country: country)
       l.tag_list.add(entry.categories.join(', '), parse: true)
       l.save
     else
