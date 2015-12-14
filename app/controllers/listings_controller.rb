@@ -21,10 +21,10 @@ class ListingsController < ApplicationController
     elsif params[:all] 
       @listings = active_listings
     elsif current_user && params[:search].blank? && current_user.state.present?
-      @listings = Listing.where(active: true, state: current_user.state).paginate(:page => params[:page], :per_page => 20)
+      @listings = Listing.where(active: true, state: current_user.state).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
     elsif (params[:search].blank? && remote_ip) || (params[:my_state] && remote_ip)
       unless Listing.where(:active => true, :state => geocoder_current_state).count == 0
-        @listings = Listing.where(:active => true, :state => geocoder_current_state).paginate(:page => params[:page], :per_page => 20)
+        @listings = Listing.where(:active => true, :state => geocoder_current_state).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
       else
         @listings = active_listings
       end
