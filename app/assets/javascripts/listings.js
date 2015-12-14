@@ -101,7 +101,7 @@ $(document).on('ready page:load', function(){
 
 	$(".job-posting").each(function(){
 		$(this).find(".edit-button").on("click", function(e){
-			e.preventDefault();
+			// e.preventDefault();
 				$(this).closest(".job-posting").find('.editable').addClass('editable-underline');
 		});
 

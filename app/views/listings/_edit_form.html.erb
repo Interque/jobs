@@ -1,0 +1,55 @@
+<div class="col-md-12 col-md-offset-3">
+
+<%= form_for(@listing) do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id if current_user  %>
+  <% if @listing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+
+      <ul>
+      <% @listing.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field" style="width:50%;">
+    <p class="requirement">* All fields are required</p>
+    <%# f.label :title %><br>
+    <%= f.text_field :title, placeholder: "title", value: @listing.title, class: "form-control" %>
+  </div>
+  <div class="field" style="width:50%;">
+    <%# f.label :description %><br>
+    <%= f.bootsy_area  :description, placeholder: "description", value: @listing.description, editor_options: { image: false }, class: "form-control" %>
+  </div>
+  <div class="field" style="width:50%;">
+    <%# f.label :organization %><br>
+    <%= f.text_field :organization, placeholder: "organization", value: @listing.organization, class: "form-control" %>
+  </div>
+  <div class="field" style="width:50%;">
+    <%# f.label :email %><br>
+    <%= f.text_field :email, placeholder: "email", value: @listing.email, class: "form-control" %>
+  </div>
+  <div class="field salary-field" style="width:50%;">
+    <%= f.label :salary, "Salary Range" %>
+    <%= f.select :salary, options_for_select(Listing::RANGE_OPTIONS, @listing.salary), {}, {class: "form-control"} %>
+    <%# f.number_field :salary %>
+  </div>
+  <div class="field" style="width:50%;">
+    <%# f.label :city, "Location: City" %><br>
+    <%= f.text_field :city, placeholder: "city", value: @listing.city, class: "form-control" %>
+  </div>
+  <div class="field salary-field " style="width:50%;">
+    <%= f.label :state, "Location: State" %>
+    <%= f.select :state, options_for_select(@listing.us_states, @listing.state), {}, {class: "form-control", id: "us_states"} %>
+    <%# f.number_field :salary %>
+  </div>
+  <div class="field" style="width:50%;">
+    <%= f.label :tag_list, "Technologies Desired" %><br>
+    <%= f.text_field :tag_list, placeholder: 'Technologies Desired Tags (separated by commas)', class: "form-control", id: "tag_form_input" %>
+  </div><br>
+  <div class="actions">
+    <%= f.submit "Update", class: "btn btn-success text-center" %>
+  </div>
+<% end %>
+</div>
