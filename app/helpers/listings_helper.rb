@@ -13,7 +13,7 @@ module ListingsHelper
     else
       geocoder = Geocoder.search(remote_ip)
       state = geocoder[0].data['region_code']
-      state
     end
+    state
   end
 end
