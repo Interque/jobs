@@ -8,8 +8,12 @@ module ListingsHelper
   end
 
   def current_state
-    geocoder = Geocoder.search(remote_ip)
-    state = geocoder[0].data['region_code']
-    state
+    if current_user && current_user.state.present?
+      state = current_user.state
+    else
+      geocoder = Geocoder.search(remote_ip)
+      state = geocoder[0].data['region_code']
+      state
+    end
   end
 end
