@@ -4,22 +4,28 @@ require 'geocoder'
 
 task :set_country => :environment do
   Listing.find_each do |listing|
-    if listing.country.blank?
-      states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA',
-      'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI',
-      'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
-      'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT',
-      'VA', 'WA', 'WV', 'WI', 'WY']
+    begin
+      if listing.country.blank?
+        states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA',
+        'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI',
+        'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
+        'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT',
+        'VA', 'WA', 'WV', 'WI', 'WY']
 
-      p "listing.state: #{listing.state}"
+        p "listing.state: #{listing.state}"
 
-      if states.include?(listing.state.strip)
-        listing.country = 'US'
-        listing.save
-        p "set US as country"
-      else
-        puts "non-US listing.state: #{listing.state}"
+        unless listing.state.blank?
+          if states.include?(listing.state.strip)
+            listing.country = 'US'
+            listing.save
+            p "set US as country"
+          else
+            puts "non-US listing.state: #{listing.state}"
+          end
+        end
       end
+    rescue => e
+      puts "an error occurred: #{e}"
     end
   end
 end
