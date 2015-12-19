@@ -15,7 +15,7 @@ task :set_country => :environment do
         p "listing.state: #{listing.state}"
 
         unless listing.state.blank?
-          if states.include?(listing.state.strip)
+          if states.include?(listing.state.strip) || states.include?(listing.state.split(' ')[0])
             listing.country = 'US'
             listing.save
             p "set US as country"
