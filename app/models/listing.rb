@@ -11,8 +11,9 @@ class Listing < ActiveRecord::Base
 	RANGE_OPTIONS=[['not specified', 1], ['less than 50k', 2], ['50k-75k', 3], ['76k-100k', 4], ['101k-125k', 5], ['126k-150k', 6], ['151k-200k', 7], ['more than 200k', 8]]
 
 	after_create :post_to_slack
+  after_create :set_country
 	after_save :update_categories # this being an after_save may have created the double posting
-  before_save :set_country
+  # before_save :set_country
 
 	def post_to_slack # why is it posting to slack twice?
     unless Rails.env == "development"
@@ -74,6 +75,7 @@ class Listing < ActiveRecord::Base
 
     if states.include?(self.state)
       self.country = 'US'
+      self.save
     end
   end
 

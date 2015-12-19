@@ -2,6 +2,7 @@ require 'httparty'
 require 'feedjira'
 require 'geocoder'
 
+
 task :find_countries => :environment do
   Listing.find_each do |listing|
     begin
@@ -69,10 +70,22 @@ task :get_jobs => :environment do
         puts "city: #{city}"
       end
       
-      if country.nil?
-        geo = Geocoder.search(city_state)
-        country = geo[0].data["address_components"][3]["short_name"]
-      end
+      # if country.nil?
+      #   unless state.blank?
+      #     states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA',
+      #       'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI',
+      #       'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
+      #       'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT',
+      #       'VA', 'WA', 'WV', 'WI', 'WY']
+
+      #     if states.include?(state)
+      #       country = 'US'
+      #     end
+      #   else
+      #     geo = Geocoder.search(city_state)
+      #     country = geo[0].data["address_components"][3]["short_name"]
+      #   end
+      # end
       Listing.create(:title => job['title'], :description => job['description'], :organization => job['company'], :location => job['location'], :city => city, :state => state, :contact => job['how_to_apply'], :salary => 1, :user_id => 1, :posted => job['created_at'], :source => 'github', :web_url => job['company_url'], :country => country)
       puts "created a job"
     else
@@ -117,8 +130,23 @@ task :stack_jobs => :environment do
           state = ""
           location = city
         end
-        geo = Geocoder.search(location)
-        country = geo[0].data["address_components"][3]["short_name"]
+
+        
+        # unless state.blank?
+        #   states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA',
+        #     'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI',
+        #     'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
+        #     'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT',
+        #     'VA', 'WA', 'WV', 'WI', 'WY']
+
+        #   if states.include?(state)
+        #     country = 'US'
+        #   end
+        # else
+        #   geo = Geocoder.search(location)
+        #   country = geo[0].data["address_components"][3]["short_name"]
+        # end
+
       end
       l = Listing.create(:title => position, :description => entry.summary, 
                          :organization => organization, :location => location, 
@@ -126,7 +154,7 @@ task :stack_jobs => :environment do
                          :contact => entry.url, :salary => 1, 
                          :user_id => 1, :posted => entry.published, 
                          :source => 'stackoverflow', 
-                         :category => entry.categories.join(', '), country: country)
+                         :category => entry.categories.join(', '))
       l.tag_list.add(entry.categories.join(', '), parse: true)
       l.save
     else
