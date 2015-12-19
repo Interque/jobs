@@ -11,11 +11,9 @@ task :set_country => :environment do
       'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT',
       'VA', 'WA', 'WV', 'WI', 'WY']
 
-      p "states include AZ? #{states.include?('AZ')}"
-
       p "listing.state: #{listing.state}"
 
-      if states.include?(listing.state)
+      if states.include?(listing.state.strip)
         listing.country = 'US'
         listing.save
         p "set US as country"
