@@ -2,6 +2,25 @@ require 'httparty'
 require 'feedjira'
 require 'geocoder'
 
+task :set_country => :environment do
+  Listing.find_each do |listing|
+    if listing.country.blank?
+      states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA',
+      'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI',
+      'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
+      'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT',
+      'VA', 'WA', 'WV', 'WI', 'WY']
+
+      p "listing.state: #{listing.state}"
+      
+      if states.include?(listing.state)
+        listing.country = 'US'
+        listing.save
+      end
+    end
+  end
+end
+
 
 task :find_countries => :environment do
   Listing.find_each do |listing|

@@ -33,7 +33,6 @@ class Listing < ActiveRecord::Base
     end
   end
 
-
 	def convert_range(num)
 		if num == 1
 			'not specified'
