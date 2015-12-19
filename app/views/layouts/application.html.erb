@@ -67,7 +67,29 @@
           </div>
         <% end %>
       </div>
-    </div>
+      <style type="text/css">
+        .devise-login{
+          color: white;
+        }
+
+        .devise-login a:hover{
+          color: black;
+        }
+      </style>
+      <div class="text-left hidden-xs" id="login-links" style="padding-top:2%;">
+        
+          <% if user_signed_in? %>
+          <span style="color:white;">Logged in as <strong><%= current_user.email %></strong>.</span>
+            <%= link_to 'Edit profile', edit_user_registration_path, class: "devise-login" %> <span style="color:white;">|</span>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "devise-login" %>
+          <% else %>
+            <%= link_to "Sign up", new_user_registration_path, class: "devise-login" %> <span style="color:white;">|</span>
+            <%= link_to "Login", new_user_session_path, class: "devise-login" %>
+          <% end %>
+        
+      </div>
+    <!--   </header>
+    </div> -->
 
 <!-- Modal -->
     <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
@@ -96,15 +118,19 @@
 
   </nav>
   <!-- SIGN IN LINKS AND LOGOUT -->
-  <div class="text-left hidden-xs" id="login-links">
-    <% if user_signed_in? %>
-      Logged in as <strong><%= current_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_user_registration_path %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path %> |
-      <%= link_to "Login", new_user_session_path %>
-    <% end %>
+  <!-- <div class="text-left hidden-xs" id="login-links"> -->
+    <%# if user_signed_in? %>
+      <!-- Logged in as <strong><%# current_user.email %> -->
+    <!-- </strong>. -->
+      <%# link_to 'Edit profile', edit_user_registration_path %> 
+      <!-- | -->
+      <%# link_to "Logout", destroy_user_session_path, method: :delete %>
+    <%# else %>
+      <%# link_to "Sign up", new_user_registration_path %> 
+      <!-- | -->
+      <%# link_to "Login", new_user_session_path %>
+    <%# end %>
+  <!-- </div> -->
 </header>
 
 <body>
