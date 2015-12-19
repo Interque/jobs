@@ -12,6 +12,7 @@ class Listing < ActiveRecord::Base
 
 	after_create :post_to_slack
 	after_save :update_categories # this being an after_save may have created the double posting
+  before_save :set_country
 
 	def post_to_slack # why is it posting to slack twice?
     unless Rails.env == "development"
@@ -30,6 +31,7 @@ class Listing < ActiveRecord::Base
       self.category = self.tag_list.join(', ')
     end
   end
+
 
 	def convert_range(num)
 		if num == 1
@@ -60,6 +62,18 @@ class Listing < ActiveRecord::Base
       end
     else
       Listing.all
+    end
+  end
+
+  def set_country
+    states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA',
+      'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI',
+      'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND',
+      'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT',
+      'VA', 'WA', 'WV', 'WI', 'WY']
+
+    if states.include?(self.state)
+      self.country = 'US'
     end
   end
 
