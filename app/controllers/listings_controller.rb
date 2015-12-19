@@ -20,9 +20,14 @@ class ListingsController < ApplicationController
       @listings = Listing.tagged_with(params[:tag].downcase).page(params[:page]).per_page(20).order(:created_at => :desc) #.per_page(12).order(:created_at => :desc)      
     elsif params[:all] 
       @listings = active_listings
+    elsif params[:us]
+      @listings = Listing.where(:country => "US").paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
+    elsif params[:international]
+      @listings = Listing.where.not(country: "US").paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
     elsif current_user && params[:search].blank? && current_user.state.present?
       @listings = Listing.where(active: true, state: current_user.state).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
     elsif (params[:search].blank? && remote_ip) || (params[:my_state] && remote_ip)
+      # @geocoder_current_state = geocoder_current_state
       unless Listing.where(:active => true, :state => geocoder_current_state).count == 0
         @listings = Listing.where(:active => true, :state => geocoder_current_state).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
       else
@@ -43,6 +48,10 @@ class ListingsController < ApplicationController
     geocoder = Geocoder.search(remote_ip)
     state = geocoder[0].data['region_code']
     state
+  end
+
+  def paramless
+
   end
 
   # GET /listings/1

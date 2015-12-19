@@ -1,23 +1,44 @@
 <%# debug listing[:params] %>
-<!-- <ul class="nav nav-tabs"> -->
-  <%# if params[:all].blank? %>
-    <!-- <li role="presentation" class="active"> -->
-  <%# else %>
-    <!-- <li role="presentation"> -->
-  <%# end %>
-      <%# link_to "All", listings_path(all: true) %>
-    <!-- </li> -->
+<ul class="nav nav-tabs nav-justified">
+  <% if (!params[:us] && !params[:international] && !params[:all]) || params[:my_state] %>
+    <li role="presentation" class="active">
+  <% else %>
+    <li role="presentation">
+  <% end %>
+    <% if current_user && current_user.state.present? %>
+      <%= link_to "#{current_user.state}", listings_path(my_state: true) %>
+    <% else %>  
+    <!-- if @geocoder_current_state -->
+      <%= link_to "State", listings_path(my_state: true) %>
+    <% end %>
+    </li>
+  
+  <% if params[:us] %>
+    <li role="presentation" class="active">
+  <% else %>
+    <li role="presentation">
+  <% end %>
+    <%= link_to "United States", listings_path(us: true) %>
+    </li>
 
-  <%# if params[:my_state].blank? %>
-    <!-- <li role="presentation" class="active"> -->
-  <%# else %>
-    <!-- <li role="presentation"> -->
-  <%# end %>
-      <%# link_to "My State", listings_path(my_state: true) %>
-    <!-- </li> -->
-<!-- </ul> -->
+  <% if params[:international] %>
+    <li role="presentation" class="active">
+  <% else %>
+    <li role="presentation">
+  <% end %>
+    <%= link_to "International", listings_path(international: true) %>
+    </li>
 
-<% if params[:search].blank? && remote_ip && !params[:all] && !params[:tag] %>
+  <% if params[:all] %>
+    <li role="presentation" class="active">
+  <% else %>
+    <li role="presentation">
+  <% end %>
+    <%= link_to "All", listings_path(all: true) %>
+    </li>
+</ul>
+
+<% if params[:search].blank? && remote_ip && !params[:all] && !params[:tag] && !params[:international] && !params[:us] %>
   <div style="padding-top:1%;">
     <div class="alert alert-info alert-dismissable text-center" style="width:70%; margin: 0 auto;">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
