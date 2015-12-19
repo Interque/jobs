@@ -23,7 +23,7 @@ class ListingsController < ApplicationController
     elsif params[:us]
       @listings = Listing.where(:country => "US").paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
     elsif params[:international]
-      @listings = Listing.where.not(country: "US").paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
+      @listings = Listing.where(:country => nil).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
     elsif current_user && params[:search].blank? && current_user.state.present?
       @listings = Listing.where(active: true, state: current_user.state).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
     elsif (params[:search].blank? && remote_ip) || (params[:my_state] && remote_ip)
