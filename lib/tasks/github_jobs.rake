@@ -2,6 +2,27 @@ require 'httparty'
 require 'feedjira'
 require 'geocoder'
 
+task :get_angel_list_jobs => :environment do
+  credentials = {username: "toddmetheny", password: "68impala"}
+  response = HTTParty.get("https://angel.co/jobs", basic_auth: credentials)
+
+  p response.inspect 
+end
+
+task :strip_white_space => :environment do
+  Listing.find_each do |job|
+    unless job.state == job.state.strip
+      p "state white space? #{job.state == job.state.strip}"
+    end
+    unless job.city == job.city.strip
+      p "city white space? #{job.city == job.city.strip}"
+    end
+    job.state = job.state.strip
+    job.city = job.city.strip
+    job.save
+  end
+end
+
 task :set_country => :environment do
   Listing.find_each do |listing|
     begin
