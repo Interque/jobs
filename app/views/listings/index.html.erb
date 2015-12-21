@@ -61,7 +61,7 @@
         <% elsif listing.location %>
           <%= listing.location %>
         <% end %>
-        <span class="listing-updated">(<%= time_ago_in_words(listing.updated_at) %> ago)</span>
+        <span class="listing-updated">(<%= time_ago_in_words(listing.created_at) %> ago)</span>
 
         <% if (current_user && listing.user_id == current_user.id) || (current_user && current_user.admin) %>
           <%= link_to '', edit_listing_path(listing), class: "edit-button glyphicon glyphicon-edit" %>
