@@ -12,12 +12,12 @@ end
 task :strip_white_space => :environment do
   Listing.find_each do |job|
     begin
-      unless job.state == job.state.strip
-        p "state white space? #{job.state == job.state.strip}"
-      end
-      unless job.city == job.city.strip
-        p "city white space? #{job.city == job.city.strip}"
-      end
+      # unless job.state == job.state.strip
+      #   p "state white space? #{job.state == job.state.strip}"
+      # end
+      # unless job.city == job.city.strip
+      #   p "city white space? #{job.city == job.city.strip}"
+      # end
       job.state = job.state.strip
       job.city = job.city.strip
       job.save
