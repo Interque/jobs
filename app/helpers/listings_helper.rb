@@ -12,7 +12,9 @@ module ListingsHelper
       state = current_user.state
     else
       geocoder = Geocoder.search(remote_ip)
-      state = geocoder[0].data['region_code']
+      unless geocoder.blank?
+        state = geocoder[0].data['region_code'] 
+      end
     end
     state
   end
