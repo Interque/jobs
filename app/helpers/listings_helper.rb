@@ -8,13 +8,18 @@ module ListingsHelper
   end
 
   def current_state
-    if current_user && current_user.state.present?
-      state = current_user.state
-    else
-      geocoder = Geocoder.search(remote_ip)
-      unless geocoder.blank?
-        state = geocoder[0].data['region_code'] 
+    begin
+      if current_user && current_user.state.present?
+        state = current_user.state
+      else
+        geocoder = Geocoder.search(remote_ip)
+        unless geocoder.blank?
+          state = geocoder[0].data['region_code'] 
+        end
       end
+    rescue => e
+      p "an error occurred: #{e}"
+      state = 'FL'
     end
     state
   end
