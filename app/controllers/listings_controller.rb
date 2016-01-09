@@ -12,8 +12,10 @@ class ListingsController < ApplicationController
 
     # trying to make fewer geocoder api calls
     if current_user && current_user.state.nil?
-      current_user.state = geocoder_current_state
-      current_user.save
+      unless geocoder_current_state.nil?
+        current_user.state = geocoder_current_state
+        current_user.save
+      end
     end
 
     if params[:tag] # if searching by tag
@@ -45,8 +47,13 @@ class ListingsController < ApplicationController
   end
 
   def geocoder_current_state
-    geocoder = Geocoder.search(remote_ip)
-    state = geocoder[0].data['region_code']
+    begin
+      geocoder = Geocoder.search(remote_ip)
+      state = geocoder[0].data['region_code']
+    rescue => e
+      puts "an error occurred: #{e}"
+      state = 'FL'
+    end
     state
   end
 
