@@ -10,14 +10,6 @@ class ListingsController < ApplicationController
   def index
     @listing = Listing.new
 
-    # trying to make fewer geocoder api calls
-    if current_user && current_user.state.nil?
-      unless geocoder_current_state.nil?
-        current_user.state = geocoder_current_state
-        current_user.save
-      end
-    end
-
     if params[:tag] # if searching by tag
       @listings = Listing.tagged_with(params[:tag].downcase).page(params[:page]).per_page(20).order(:created_at => :desc) #.per_page(12).order(:created_at => :desc)      
     elsif params[:all] 
@@ -40,6 +32,14 @@ class ListingsController < ApplicationController
     else
       @listings = active_listings
     end
+
+    # trying to make fewer geocoder api calls
+    if current_user && current_user.state.nil?
+      unless geocoder_current_state.nil?
+        current_user.state = geocoder_current_state
+        current_user.save
+      end
+    end
   end
 
   def active_listings
@@ -49,7 +49,11 @@ class ListingsController < ApplicationController
   def geocoder_current_state
     begin
       geocoder = Geocoder.search(remote_ip)
-      state = geocoder[0].data['region_code']
+      unless geocoder[0].nil?
+        state = geocoder[0].data['region_code']
+      else
+        state = 'FL'
+      end
     rescue => e
       puts "an error occurred: #{e}"
       state = 'FL'

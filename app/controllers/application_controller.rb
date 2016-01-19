@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
         value: utm_stuff,
         expires: 1.year.from_now
       }
+      # on registration you can create a new entry in UserAttribution (doesn't exist yet)
+      # need to do something like this http://stackoverflow.com/questions/5212350/making-changes-to-the-devise-user-controller-in-rails 
     end
   end
 
