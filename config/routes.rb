@@ -11,6 +11,13 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api, constraints: {format: 'json'} do
+    namespace :v1 do
+      resources :listings
+      # , only: [:index]
+    end
+  end
+
   get "listings/new" => 'listings#new', :as => :new
 
   get 'tags/:tag', to: 'listings#index', as: :tag
