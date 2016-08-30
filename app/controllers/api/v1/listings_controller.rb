@@ -5,7 +5,7 @@ module Api
       respond_to :json
       
       def index
-        p "inside the listing index of the api"
+        p "params inside the listing index of the api, #{params.inspect}"
 
 
         listings = Listing.where(state: params[:state]).last(10)

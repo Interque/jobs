@@ -3,6 +3,7 @@ class ListingsController < ApplicationController
   before_filter :authenticate_user!, except: [:show, :index]
   before_filter :require_login, only: [:create, :update, :edit, :destroy]
   before_action :creator, only: [:update, :edit]
+  before_filter :wyncode_authenticate, only: [:wyncode]
   # after_save :update_categories
 
   # GET /listings
@@ -11,19 +12,19 @@ class ListingsController < ApplicationController
     @listing = Listing.new
 
     if params[:tag] # if searching by tag
-      @listings = Listing.tagged_with(params[:tag].downcase).page(params[:page]).per_page(20).order(:created_at => :desc) #.per_page(12).order(:created_at => :desc)      
+      @listings = Listing.where(wyncode_only: false).tagged_with(params[:tag].downcase).page(params[:page]).per_page(20).order(:created_at => :desc) #.per_page(12).order(:created_at => :desc)      
     elsif params[:all] 
       @listings = active_listings
     elsif params[:us]
       @listings = Listing.where(:country => "US").paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
     elsif params[:international]
-      @listings = Listing.where(:country => nil).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
+      @listings = Listing.where(:country => nil, wyncode_only: false).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
     elsif current_user && params[:search].blank? && current_user.state.present?
-      @listings = Listing.where(active: true, state: current_user.state).paginate(:page => params[:page], :per_page => 20).order("created_at DESC")
+      @listings = Listing.where(active: true, state: current_user.state, wyncode_only: false).paginate(:page => params[:page], :per_page => 20).order("created_at DESC")
     elsif (params[:search].blank? && remote_ip) || (params[:my_state] && remote_ip)
       # @geocoder_current_state = geocoder_current_state
       unless Listing.where(:active => true, :state => geocoder_current_state).count == 0
-        @listings = Listing.where(:active => true, :state => geocoder_current_state).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
+        @listings = Listing.where(:active => true, :state => geocoder_current_state, wyncode_only: false).paginate(:page => params[:page], :per_page => 20).order(:created_at => :desc)
       else
         @listings = active_listings
       end
@@ -43,7 +44,7 @@ class ListingsController < ApplicationController
   end
 
   def active_listings
-    Listing.where(:active => true).page(params[:page]).per_page(20).order(:created_at => :desc)
+    Listing.where(:active => true, wyncode_only: false).page(params[:page]).per_page(20).order(:created_at => :desc)
   end
 
   def geocoder_current_state
@@ -155,7 +156,18 @@ class ListingsController < ApplicationController
     end
   end
 
+  def wyncode
+    @listings = Listing.where(wyncode_only: true)
+  end
+
+  def wyncode_authenticate
+    authenticate_or_request_with_http_basic('Administration') do |username, password|
+      username == ENV["WYNCODE_USERNAME"] && password == ENV["WYNCODE_PASSWORD"]
+    end
+  end
+
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
       @listing = Listing.find(params[:id])
@@ -163,7 +175,7 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:title, :description, :organization, :email, :salary, :city, :state, :user_id, :location, :source, :posted, :contact, :category, :tag_list)
+      params.require(:listing).permit(:title, :description, :organization, :email, :salary, :city, :state, :user_id, :location, :source, :posted, :contact, :category, :tag_list, :wyncode_only)
     end
 
     def require_login

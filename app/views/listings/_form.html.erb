@@ -46,7 +46,11 @@
     <%= f.label :tag_list, "Technologies Desired" %><br>
     <%= f.text_field :tag_list, placeholder: 'Technologies Desired Tags (separated by commas)', class: "form-control", id: "tag_form_input" %>
   </div><br>
+  <div class="field">
+    <%= f.label :wyncode_only, "Wyncode only" %>
+    <%= f.check_box :wyncode_only %>
+  </div>
   <div class="actions">
-    <%= f.submit "Create", class: "btn btn-success" %>
+    <%= f.submit "Create", class: "btn btn-lg btn-success" %>
   </div>
 <% end %>

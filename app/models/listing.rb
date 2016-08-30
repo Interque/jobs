@@ -56,12 +56,12 @@ class Listing < ActiveRecord::Base
   def self.search(search)
     if search #&& Listing.where(["city LIKE ? OR state LIKE ?", "#{search}", "#{search}"]).count == 0
       if Listing.tagged_with(search.downcase).count > 0
-        Listing.tagged_with(search.downcase)
+        Listing.where(wyncode_only: false).tagged_with(search.downcase)
       else
-        Listing.where("LOWER(city) LIKE ? OR LOWER(state) LIKE ?", "#{search.downcase}", "#{search.downcase}").order("updated_at DESC")
+        Listing.where(wyncode_only: false).where("LOWER(city) LIKE ? OR LOWER(state) LIKE ?", "#{search.downcase}", "#{search.downcase}").order("updated_at DESC")
       end
     else
-      Listing.all
+      Listing.where(wyncode_only: false)
     end
   end
 

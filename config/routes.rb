@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :listings do
     collection do
       get :tags, as: :tags
+      get "wyncode"
     end
   end
 
